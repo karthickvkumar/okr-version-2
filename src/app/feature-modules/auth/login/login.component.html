@@ -1,0 +1,43 @@
+<div class="bg">
+    <div nz-row class="center">
+        <div nz-col nzSpan="8" nzOffset="8">
+            <nz-card class="shadow-lg ant-card-bordered">
+                <div nz-row class="logo">
+                    <div nz-col nzSpan="12" nzOffset="6">
+                        <h2 nz-typography>Reqstar Login</h2>
+                    </div>
+                </div>
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" class="login-form"
+                    (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-label class="label" nzRequired>Username</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter your username">
+                            <nz-input-group nzSize="large" nzPrefixIcon="user">
+                                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label class="label" nzRequired>Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter your password">
+                            <nz-input-group nzSize="large" nzPrefixIcon="lock">
+                                <input type="password" nz-input formControlName="password" placeholder="Password" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div nz-row class="signup-row">
+                        <div nz-col nzSpan="18" class="text">
+                            <span>Don't have an account? <a href="#"> Signup</a></span>
+                        </div>
+                        <div nz-col nzSpan="6">
+                            <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
+                                nzType="primary" [disabled]="!validateForm.valid">Login</button>
+                        </div>
+                    </div>
+
+                </form>
+            </nz-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+.bg {
+    width: 100%;
+    height: 100%;
+    background-image: url(../../../../assets/images/auth-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}
+.label{
+    font-weight: 500;
+}
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(77,84,124,.09)!important;
+}
+.ant-card-bordered {
+    border: 1px solid #edf2f9;
+}
+.ant-card-head{
+    border-bottom: none !important;
+}
+.center {
+    top: 9%;
+}
+
+.logo{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.signup-row{
+    padding-bottom: 10px;
+}
+.btn-width{
+    height: 36px;
+    width: 100%;
+    font-weight: 400;
+}
+.pad-4{
+    padding-bottom: 2px;
+}
+.google-icon{
+    margin-top: -5px;
+    margin-right: 5px;
+}
+.or-block{
+    margin-bottom: 10px;
+}
+.or{
+    font-weight: 600;
+    margin-left: -5px;
+}

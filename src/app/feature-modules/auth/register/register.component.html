@@ -1,0 +1,60 @@
+<div class="bg">
+    <div nz-row class="center">
+        <div nz-col nzSpan="8" nzOffset="8">
+            <nz-card class="shadow-lg ant-card-bordered">
+                <div nz-row class="logo">
+                    <div nz-col nzSpan="14" nzOffset="6">
+                        <h2 nz-typography>Reqstar Sign Up</h2>
+                    </div>
+                </div>
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" class="login-form"
+                    (ngSubmit)="submitForm()">
+                    <nz-form-item class="pad-4">
+                        <nz-form-label class="label" nzRequired>Email</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter your email">
+                            <nz-input-group nzSize="large" nzPrefixIcon="mail">
+                                <input type="text" nz-input formControlName="email" placeholder="Email" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="pad-4">
+                        <nz-form-label class="label" nzRequired>Username</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter your username">
+                            <nz-input-group nzSize="large" nzPrefixIcon="user">
+                                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="pad-4">
+                        <nz-form-label class="label" nzRequired>Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter your password">
+                            <nz-input-group nzSize="large" nzPrefixIcon="lock">
+                                <input type="password" nz-input formControlName="password" placeholder="Password" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div nz-row class="signup-row">
+                        <div nz-col>
+                            <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
+                                nzType="primary" [disabled]="!validateForm.valid">Sign Up</button>
+                        </div>
+
+                    </div>
+
+                </form>
+                <div nz-row>
+                    <div nz-col nzSpan="8" nzOffset="12" class="or-block">
+                        <span class="or">OR</span>
+                    </div>
+                    <div nz-col class="or-block">
+                        <button nz-button class="btn-width" [nzSize]="'large'" nzType="default"
+                            (click)="socialSignIn('google')">
+                            <img src="assets/images/google.svg" class="google-icon" />
+                            Continue with Google</button>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+    </div>
+</div>
