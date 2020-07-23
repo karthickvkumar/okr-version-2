@@ -14,19 +14,53 @@
                 <nz-divider></nz-divider>
                 <div class="team-wrap">
                     <span nz-typography>TEAMS</span>
-                    <i nz-icon nzType="plus" class="team-icon" nzTheme="outline"></i>
+                    <i nz-icon nzType="plus" *ngIf="hasTeams" class="team-icon" nzTheme="outline"></i>
                 </div>
                 <div class="list-item">
                     <i nz-icon nzType="plus" nzTheme="outline"></i>
                     <span class="list-text" nz-typography>Create a team</span>
                 </div>
-                <div class="list-item">
+                <div class="list-item" *ngIf="hasTeams">
                     <i nz-icon class="list-icon" nzType="usergroup-add" nzTheme="outline"></i>
                     <span class="list-text" nz-typography>Front End</span>
                 </div>
             </div>
             <div nz-col nzSpan="19" class="board-warpper">
-                <div>Create new board</div>
+                <div class="card-heading">
+                    <i nz-icon nzType="user" class="card-head-icon" nzTheme="outline"></i>
+                    <h3 class="inline" nz-typography>Personal Boards</h3>
+                </div>
+                <div nz-row>
+                    <div nz-col [nzSpan]="5" class="card-wrap">
+                        <nz-skeleton [nzTitle]="false" [nzParagraph]="{ rows: 2, width: 200 }" [nzActive]="true"
+                            class="card-loader">
+                        </nz-skeleton>
+                    </div>
+
+                    <div nz-col [nzSpan]="5" class="card-wrap">
+                        <nz-card nzHoverable class="card">
+                            <p>Card content</p>
+                        </nz-card>
+                    </div>
+
+                    <div nz-col [nzSpan]="5" class="card-wrap">
+                        <nz-card nzHoverable class="card">
+                            <p>Card content</p>
+                        </nz-card>
+                    </div>
+
+                    <div nz-col [nzSpan]="5" class="card-wrap">
+                        <nz-card nzHoverable class="card">
+                            <p>Card content</p>
+                        </nz-card>
+                    </div>
+
+                    <div nz-col [nzSpan]="5" class="card-wrap">
+                        <nz-card class="card add-card align-center-div">
+                            <span class="align-center-text m-top-10">Create new board</span>
+                        </nz-card>
+                    </div>
+                </div>
             </div>
         </div>
     </nz-content>

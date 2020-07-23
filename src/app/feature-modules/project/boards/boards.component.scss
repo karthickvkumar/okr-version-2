@@ -39,8 +39,57 @@
 .board-warpper{
     height: 90vh;
     background-color: white;
+    padding-left: 35px;
+    padding-top: 30px;
 }
 .menu-item-selected {
     background-color: #e6f7ff;
     border-right: 5px solid #1890ff;
+}
+.inline{
+    display: inline;
+    padding-left: 6px;
+}
+.card-heading{
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+.card-head-icon{
+    font-size: 16px;
+}
+.card-wrap{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+.card-loader{
+  height: 90px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding-top: 18px;
+}
+.add-card{
+    background-color: rgba(9,30,66,.08);
+    box-shadow: none;
+    border: none;
+    color: #172b4d;
+}
+
+.card{
+    height: 90px;
+    width: 235px;
+    cursor: pointer;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+}
+.align-center-div{
+    text-align: center;
+}
+.align-center-text{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+.m-top-10{
+    margin-top: 10px;
 }

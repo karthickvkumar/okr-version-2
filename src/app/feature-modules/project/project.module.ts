@@ -9,6 +9,8 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardsComponent } from './boards/boards.component';
@@ -36,7 +38,9 @@ import { HeaderComponent } from '../../core-components/header/header.component';
     NzAvatarModule,
     NzDropDownModule,
     NzIconModule,
-    NzDividerModule
+    NzDividerModule,
+    NzCardModule,
+    NzSkeletonModule
   ]
 })
 export class ProjectModule { }
