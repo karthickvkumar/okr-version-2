@@ -1,0 +1,24 @@
+<nz-layout>
+    <app-header></app-header>
+    <div nz-row class="workflow-header">
+        <div nz-col class="flex-1">
+            <a nz-button class="btn-link btn-link-active" (click)="goToPlanner()" nzType="link">Nested Planner</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-button class="btn-link" (click)="goToTimeline()" nzType="link">Timeline</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-button class="btn-link" (click)="goToStatus()" nzType="link">Status</a>
+        </div>
+        <div nz-col class="m-right-50 m-top-5">
+            <a nz-button class="btn-link" nzType="link">Boards</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-button class="btn-link" (click)="openSettings()" nzType="link">Settings</a>
+            <nz-drawer [nzClosable]="false" [nzVisible]="isSettingsVisible" nzPlacement="right" nzTitle="Settings"
+                (nzOnClose)="closeSettings()">
+            </nz-drawer>
+        </div>
+    </div>
+    <nz-content class="workflow-content">
+        <router-outlet></router-outlet>
+    </nz-content>
+
+</nz-layout>

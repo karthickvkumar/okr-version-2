@@ -1,1 +1,82 @@
-<p>nested-planner works!</p>
+<div id="card-wrapper" [ngStyle]="{'width': innerWidth+'px', 'height':innerHeight-heightOffset+'px'}"
+    style="background-color: #f4f5f7;overflow: scroll;">
+    <div style="padding-top: 10px; margin-bottom: 10px">
+        <span class="btn-label">Create Workflow :</span>
+        <button style="background-color:#3f51b5; color: white" mat-raised-button (click)="newCard(boards)"
+            [disabled]="isLoading">
+            Add New Epic
+        </button>
+        <button class="btn-back" mat-raised-button (click)="goBack()">
+            Back to Boards
+        </button>
+    </div>
+
+    <div *ngFor="let board of boards.talks; let boardIndex = index; let lastIndex = last;">
+        <ng-template [ngTemplateOutlet]="recursiveBoard"
+            [ngTemplateOutletContext]="{ $implicit: board, boards: boards.talks, boardIndex:boardIndex, lastIndex: lastIndex}">
+        </ng-template>
+    </div>
+    <div *ngIf="isLoading">
+        <img class="card-loader" src="assets/images/loader.gif" />
+    </div>
+    <div *ngIf="!boards.talks.length && !isLoading">
+        <span class="no-board">No Cards to display</span>
+    </div>
+
+</div>
+
+<ng-template #recursiveBoard let-board let-boards="boards" let-boardIndex="boardIndex" let-lastIndex="lastIndex">
+    <div [ngClass]="{'epic' : !board.parentId, 'release': board.parentId }"
+        [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '10px'}"
+        (click)="editCard($event,board, boards.talks, boardIndex)">
+        <div class="action-btn">
+            <button (click)="$event.stopPropagation();" mat-icon-button matTooltip="Options"
+                style="width: 20px;transform: scale(0.8);">
+                <!-- <mat-icon>more_vert</mat-icon> -->
+            </button>
+            <!-- <mat-menu #cardOption="matMenu">
+                <button mat-menu-item (click)="addCard(board, boards, boardIndex)">
+                    <mat-icon>add</mat-icon>
+                    <span>Add Child</span>
+                </button>
+                <button mat-menu-item (click)="deleteCard(board, boards, boardIndex)">
+                    <mat-icon>delete</mat-icon><span>Delete</span>
+                </button>
+
+                <button mat-menu-item (click)="editCard(board, boards, boardIndex)">
+                    <mat-icon>create</mat-icon>
+                    <span>Edit</span>
+                </button>
+            </mat-menu> -->
+            <button mat-icon-button matTooltip="Add new feature" (click)="addCard($event, board, boards, boardIndex)"
+                style="width: 20px;transform: scale(0.8);">
+                Add
+                <!-- <mat-icon>send</mat-icon> -->
+            </button>
+        </div>
+        <div class="card-content">
+            <div class="card-text-wrap">
+                <span class="card-text">{{board.title}}</span>
+                <!-- <span class="card-ellipse">...</span> -->
+            </div>
+            <div class="date-warp">
+                <!-- <mat-icon class="date-icon">access_time</mat-icon> -->
+                <!-- <span class="date">{{board?.selectedDate?.end | format}}</span> -->
+            </div>
+            <div class="speaker-wrap">
+                <span class="card-status">{{board?.status | uppercase}}</span>
+                <span class="speaker" *ngIf="board.author">{{board.author}}</span>
+
+            </div>
+        </div>
+        <div *ngIf="board?.talks?.length" style="display: table-cell;">
+            <div *ngFor="let b of board.talks; let boardIndex = index; let lastIndex = last; let firstIndex = first">
+
+                <ng-template [ngTemplateOutlet]="recursiveBoard"
+                    [ngTemplateOutletContext]="{ $implicit: b, boards: board.talks, boardIndex:boardIndex, lastIndex: lastIndex}">
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</ng-template>

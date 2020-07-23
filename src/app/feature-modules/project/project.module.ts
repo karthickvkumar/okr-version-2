@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardsComponent } from './boards/boards.component';
@@ -19,6 +20,7 @@ import { NestedPlannerComponent } from './nested-planner/nested-planner.componen
 import { TimelineComponent } from './timeline/timeline.component';
 import { StatusComponent } from './status/status.component';
 import { HeaderComponent } from '../../core-components/header/header.component';
+import { WorkflowComponent } from './workflow/workflow.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { HeaderComponent } from '../../core-components/header/header.component';
     NestedPlannerComponent,
     TimelineComponent,
     StatusComponent,
-    HeaderComponent],
+    HeaderComponent,
+    WorkflowComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,
@@ -40,7 +43,8 @@ import { HeaderComponent } from '../../core-components/header/header.component';
     NzIconModule,
     NzDividerModule,
     NzCardModule,
-    NzSkeletonModule
+    NzSkeletonModule,
+    NzDrawerModule
   ]
 })
 export class ProjectModule { }

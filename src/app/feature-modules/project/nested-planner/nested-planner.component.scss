@@ -1,0 +1,119 @@
+.btn-label{
+    font-size: 18px;
+    font-weight: 500;
+    margin: 15px;
+}
+.epic{
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 1px 4px 10px 0px rgba(179,179,179,1);
+    color: #000000;
+    height: auto;
+    display: table;
+    table-layout: fixed;
+    width: 300px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.release{
+    background-color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 1px 2px 6px 0px rgba(179,179,179,1);
+    color: #000000;
+    height: auto;
+    table-layout: fixed;
+    display: table;
+    margin-left: 165px;
+    width: 300px;
+}
+
+.margin-btm{
+    margin-bottom: 10px;
+}
+.action-btn{
+    display: inline-flex;
+    margin-left: 250px;
+}
+
+.card-content{
+    width: 280px;
+    padding-left: 15px;
+    margin-top: -30px;
+    color: #2b2b2b;
+    font-size: 1em;
+    line-height: 1.45;
+    font-weight: normal;
+    letter-spacing: 0.005em;
+}
+.card-ellipse{
+    margin-top: 24px;
+}
+.card-text-wrap{
+    display: inline-flex;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    /* height: 50px; */
+}
+.card-text{
+    width: 245px;
+}
+.card-speaker{
+    display: block;
+    padding-top: 10px;
+}
+.date-warp{
+    position: relative;
+    color: #f50000;
+    border-radius: 5px;
+    background: #f4433661;
+    padding-left: 5px;
+    display: inline-block;
+    padding-right: 5px;
+}
+.date-icon{
+    position: absolute;
+    top: 4px;
+    font-size: 16px;
+}
+.date{
+    margin-left: 18px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.speaker-wrap{
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    font-weight: 400;
+    width: 290px;
+}
+.card-status{
+    color: green;
+    background-color: #00800070;
+    padding: 2px 5px 2px 5px;
+    border-radius: 5px;
+}
+.speaker{
+    color: #673AB7;
+    background-color: #673ab770;
+    padding: 2px 6px 2px 6px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.btn-back{
+    background-color: #3f51b5;
+    color: white;
+    float: right;
+    margin-right: 20px;
+}
+
+.btn {
+  transition: transform .3s ease-out;
+}
+.btn:hover {
+  transform: translate(30px, 0);
+  width: 340px;
+}

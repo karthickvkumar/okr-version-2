@@ -2,9 +2,21 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BoardsComponent } from './boards/boards.component';
+import { WorkflowComponent } from './workflow/workflow.component';
+import { NestedPlannerComponent } from './nested-planner/nested-planner.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [
-  { path: '', component: BoardsComponent }
+  { path: 'workflow', component: WorkflowComponent },
+  {
+    path: '', component: WorkflowComponent,
+    children: [
+      { path: '', component: NestedPlannerComponent },
+      { path: 'timeline', component: TimelineComponent },
+      { path: 'status', component: StatusComponent },
+    ]
+  },
 ];
 
 @NgModule({

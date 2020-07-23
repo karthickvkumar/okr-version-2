@@ -1,0 +1,31 @@
+.workflow-header{
+    background-color:#f9f9f9;
+    height: 30px;
+    margin-top: 70px;
+    font-size: 14px;
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 50px;
+}
+.flex-1{
+    flex: 1;
+    align-self: center;
+}
+.m-right-50{
+    margin-right: 50px;
+}
+.m-top-5{
+    margin-top: 5px;
+}
+.btn-link{
+    color: black;
+    font-weight: 500;
+}
+.btn-link-active{
+    color: #2196F3
+}
+.workflow-content{
+    height: 86vh;
+    background-color: white;
+}
