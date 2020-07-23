@@ -3,8 +3,8 @@
         <div nz-col nzSpan="8" nzOffset="8">
             <nz-card class="shadow-lg ant-card-bordered">
                 <div nz-row class="logo">
-                    <div nz-col nzSpan="12" nzOffset="6">
-                        <h2 nz-typography>Reqstar Login</h2>
+                    <div nz-col nzSpan="12" nzOffset="8">
+                        <h3 nz-typography>Reqstar Login</h3>
                     </div>
                 </div>
                 <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" class="login-form"
@@ -27,12 +27,13 @@
                     </nz-form-item>
 
                     <div nz-row class="signup-row">
-                        <div nz-col nzSpan="18" class="text">
-                            <span>Don't have an account? <a href="#"> Signup</a></span>
+                        <div nz-col nzSpan="18" class="text" (click)="gotoSignUp()">
+                            <span>Don't have an account? <a> Signup</a></span>
                         </div>
                         <div nz-col nzSpan="6">
                             <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
-                                nzType="primary" [disabled]="!validateForm.valid">Login</button>
+                                nzType="primary">Login</button>
+                            <!-- [disabled]="!validateForm.valid" -->
                         </div>
                     </div>
 

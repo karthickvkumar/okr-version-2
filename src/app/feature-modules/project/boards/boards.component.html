@@ -1,1 +1,33 @@
-<p>boards works!</p>
+<nz-layout>
+    <app-header></app-header>
+    <nz-content class="outer-content">
+        <div nz-row>
+            <div nz-col nzSpan="5" class="list">
+                <div class="list-item m-top-20 menu-item-selected">
+                    <i nz-icon class="list-icon" nzType="layout" nzTheme="outline"></i>
+                    <span class="list-text" nz-typography>Boards</span>
+                </div>
+                <div class="list-item">
+                    <i nz-icon class="list-icon" nzType="setting" nzTheme="outline"></i>
+                    <span class="list-text" nz-typography>Settings</span>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="team-wrap">
+                    <span nz-typography>TEAMS</span>
+                    <i nz-icon nzType="plus" class="team-icon" nzTheme="outline"></i>
+                </div>
+                <div class="list-item">
+                    <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    <span class="list-text" nz-typography>Create a team</span>
+                </div>
+                <div class="list-item">
+                    <i nz-icon class="list-icon" nzType="usergroup-add" nzTheme="outline"></i>
+                    <span class="list-text" nz-typography>Front End</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="19" class="board-warpper">
+                <div>Create new board</div>
+            </div>
+        </div>
+    </nz-content>
+</nz-layout>

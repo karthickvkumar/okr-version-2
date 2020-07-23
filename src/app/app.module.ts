@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+
 import { AuthModule } from './feature-modules/auth/auth.module';
 import { ProjectModule } from './feature-modules/project/project.module';
 import { PageNotFoundComponent } from './core-components/page-not-found/page-not-found.component';
