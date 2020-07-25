@@ -8,7 +8,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [
-  { path: 'workflow', component: WorkflowComponent },
+  { path: 'workflow', component: BoardsComponent },
   {
     path: '', component: WorkflowComponent,
     children: [

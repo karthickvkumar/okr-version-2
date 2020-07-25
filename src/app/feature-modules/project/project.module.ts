@@ -12,6 +12,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardsComponent } from './boards/boards.component';
@@ -44,7 +45,8 @@ import { WorkflowComponent } from './workflow/workflow.component';
     NzDividerModule,
     NzCardModule,
     NzSkeletonModule,
-    NzDrawerModule
+    NzDrawerModule,
+    DragDropModule
   ]
 })
 export class ProjectModule { }
