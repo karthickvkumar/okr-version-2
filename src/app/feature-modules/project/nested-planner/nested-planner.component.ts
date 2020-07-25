@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from "@angular/common";
-import { cloneDeep } from "lodash";
+import { cloneDeep, max } from "lodash";
 import * as moment from 'moment';
 
 @Component({
@@ -53,6 +53,9 @@ export class NestedPlannerComponent implements OnInit {
   dropTargetIds = [];
   nodeLookup = {};
   dropActionTodo = null;
+
+  cardHolder: any[] = [];
+  cardHolderCount: number = 0;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute) {
 
@@ -189,6 +192,7 @@ export class NestedPlannerComponent implements OnInit {
     // this.boardAPI.getCards(this.boardId).subscribe((response) => {
     //   this.isLoading = false;
     //   this.boards.talks = this.arrangeCards(response);
+    // this.getCardHolder();
     //   if (this.boards.talks.length > 0) this.boardAPI.notification("Cards are loaded successfully")
     //   if (this.boards.talks.length == 0) this.boardAPI.notification("There is no cards to display")
     // },
@@ -209,7 +213,10 @@ export class NestedPlannerComponent implements OnInit {
     newCard.boradId = this.boardId;
     newCard.id = this.generateGuid();
     newCard.parentId = null;
+    newCard.level = 1;
+
     card.talks.push(newCard);
+    this.getCardHolder();
 
     this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
@@ -224,10 +231,12 @@ export class NestedPlannerComponent implements OnInit {
     event.stopPropagation();
     let newCard = cloneDeep(this.cards[1]);
     newCard.boradId = this.boardId;
-    newCard.id = this.generateGuid();
+    newCard.parentId = parentCard[index]['_id'];
+    newCard.level = parentCard[index]['level'] + 1;
 
     if (card.talks) card.talks.push(newCard);
     if (!card.talks) card.talks = [newCard];
+    this.getCardHolder();
 
     this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
@@ -256,12 +265,19 @@ export class NestedPlannerComponent implements OnInit {
     //   });
   }
 
-  deleteCard(card, talks, index) {
+  deleteCard(event, card, talks, index) {
+    event.stopPropagation();
+    if (card) {
+      talks.splice(index, 1);
+      this.getCardHolder();
+    }
     // this._dialog.open(DeleteTalkComponent, { data: card, width: '500px' })
     //   .afterClosed()
     //   .subscribe(response => {
-    //     if (response && card._id) {
-    //       talks.splice(index, 1);
+    // if (response && card._id) {
+
+    //   talks.splice(index, 1);
+    //   this.getCardHolder();
     //       this.boardAPI.deleteCard(card._id).subscribe((response) => {
     //         this.boardAPI.notification("Card deleted successfully");
     //       },
@@ -290,16 +306,23 @@ export class NestedPlannerComponent implements OnInit {
     return roots;
   }
 
-  generateGuid() {
-    let result, i, j;
-    result = '';
-    for (j = 0; j < 32; j++) {
-      if (j == 8 || j == 12 || j == 16 || j == 20)
-        result = result + '-';
-      i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
-      result = result + i;
+  getCardHolder() {
+    const cards = this.destructor(this.boards.talks);
+    if (cards.length == 0) {
+      this.cardHolderCount = 0;
+      this.cardHolder = [];
+      return;
     }
-    return result;
+    let maxValue = max(cards.map((card) => {
+      return card.length
+    }));
+    this.cardHolderCount = maxValue;
+    let maxLevel = cards.filter((card) => {
+      return card.length == maxValue
+    });
+    this.cardHolder = maxLevel[0].map((index) => {
+      return "workflow " + index
+    })
   }
 
   getByID(board, id) {
@@ -320,6 +343,41 @@ export class NestedPlannerComponent implements OnInit {
 
   export() {
     console.log(this.boards.talks)
+  }
+
+  traverse(board, path = [], result = []) {
+    if (!board.talks.length)
+      if (board._id) result.push(path.concat(board));
+    for (const child of board.talks)
+      this.traverse(child, path.concat(board), result);
+    return result;
+  }
+
+  destructor(boards) {
+    let result = [];
+    let flat = (data, prev = '') => {
+      if (Array.isArray(data)) {
+        data.forEach(e => flat(e, prev))
+      } else {
+        prev = prev + (prev.length ? '.' : '') + data.level;
+        if (!data.talks.length) result.push(prev.split('.').map(Number))
+        else flat(data.talks, prev)
+      }
+    }
+    flat(boards);
+    return result;
+  }
+
+  generateGuid() {
+    let result, i, j;
+    result = '';
+    for (j = 0; j < 32; j++) {
+      if (j == 8 || j == 12 || j == 16 || j == 20)
+        result = result + '-';
+      i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+      result = result + i;
+    }
+    return result;
   }
 
 }

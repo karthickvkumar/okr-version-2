@@ -34,7 +34,7 @@
 }
 .action-btn{
     display: inline-flex;
-    margin-left: 190px;
+    margin-left: 150px;
 }
 
 .card-content{
@@ -131,7 +131,8 @@
     // width: 250px;
 }
 .first-child{
-    margin-top: -83px;
+    // margin-top: -83px;
+    margin-top: -64px;
 }
 
 .cdk-drag-placeholder {
@@ -176,3 +177,24 @@
   margin-left:20px;
   color:#aaa;
  }
+
+//  Custom
+.card-holder{
+    // position: relative;
+    // overflow: scroll;
+
+    overflow-x:scroll;
+    display:Block;
+    white-space: nowrap;
+}
+
+.holder{
+    display:inline-block;
+    margin-right:10px;
+    position: relative;
+    border:1px solid red;
+}
+
+.planner-wrapper{
+    position: absolute;
+}

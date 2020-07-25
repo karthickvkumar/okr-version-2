@@ -1,5 +1,4 @@
-<div id="card-wrapper" [ngStyle]="{'width': innerWidth+'px', 'height':innerHeight-heightOffset+'px'}"
-    style="background-color: #f4f5f7;overflow: scroll;">
+<div id="card-wrapper" [ngStyle]="{'width': innerWidth+'px', 'height':innerHeight-heightOffset+'px'}">
     <div style="padding-top: 10px; margin-bottom: 10px">
         <span class="btn-label">Create Workflow :</span>
         <button style="background-color:#3f51b5; color: white" mat-raised-button (click)="newCard(boards)"
@@ -12,16 +11,19 @@
     </div>
     <!-- New Update -->
 
-    <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex">
+    <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex" let-nodes="nodes" let-nodeIndex="nodeIndex">
         <div class="node-item" [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '15px'}" [attr.data-id]="node.id"
             [attr.id]="'node-'+node.id">
             <!-- Card Design -->
             <div class="node-title">
                 <div class="action-btn">
-
-                    <button mat-icon-button matTooltip="Add new feature" (click)="addCard($event, node)"
-                        style="width: 20px;transform: scale(0.8);">
-                        Add Card
+                    <button mat-icon-button matTooltip="Add new feature"
+                        (click)="deleteCard($event,node, nodes, nodeIndex)">
+                        Delete
+                    </button>
+                    <button mat-icon-button matTooltip="Add new feature"
+                        (click)="addCard($event, node, nodes,nodeIndex)">
+                        Add
                     </button>
                 </div>
                 <div class="card-content">
@@ -48,7 +50,9 @@
                 <div [ngClass]="{'first-child': firstIndex}"
                     *ngFor="let child of node.talks; let nodeIndex = index; let firstIndex = first; let lastIndex = last"
                     cdkDrag [cdkDragData]="child.id" (cdkDragMoved)="dragMoved($event)">
-                    <ng-container *ngTemplateOutlet="tmplNode,context:{node:child, lastIndex:lastIndex}"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="tmplNode,context:{node:child, nodes:node.talks, nodeIndex: nodeIndex, lastIndex:lastIndex}">
+                    </ng-container>
                 </div>
 
             </div>
@@ -56,26 +60,38 @@
         </div>
     </ng-template>
 
-    <div cdkDropList [cdkDropListData]="this.boards.talks" [id]="'main'" [cdkDropListConnectedTo]="dropTargetIds"
-        (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="true">
-
-        <div class="item-wrap"
-            *ngFor="let node of this.boards.talks, let nodeIndex = index; let firstIndex = first; let lastIndex = last"
-            cdkDrag [cdkDragData]="node.id" (cdkDragMoved)="dragMoved($event)">
-
-            <ng-container
-                *ngTemplateOutlet="tmplNode,context:{node:node, nodeIndex:nodeIndex, firstIndex: firstIndex, lastIndex: lastIndex}">
-            </ng-container>
-
+    <!-- Blocks -->
+    <div class="card-holder">
+        <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index;">
+            <div>
+                {{holder}}
+            </div>
         </div>
-    </div>
 
-    <!-- New Update -->
-    <div *ngIf="isLoading">
-        <img class="card-loader" src="assets/images/loader.gif" />
+
+        <div cdkDropList [cdkDropListData]="this.boards.talks" [id]="'main'" [cdkDropListConnectedTo]="dropTargetIds"
+            (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="true" class="planner-wrapper">
+
+            <div class="item-wrap"
+                *ngFor="let node of this.boards.talks, let nodeIndex = index; let firstIndex = first; let lastIndex = last"
+                cdkDrag [cdkDragData]="node.id" (cdkDragMoved)="dragMoved($event)">
+
+                <ng-container
+                    *ngTemplateOutlet="tmplNode,context:{node:node,nodes:this.boards.talks, nodeIndex:nodeIndex, firstIndex: firstIndex, lastIndex: lastIndex}">
+                </ng-container>
+
+            </div>
+        </div>
+
+        <!-- New Update -->
+        <div *ngIf="isLoading">
+            <img class="card-loader" src="assets/images/loader.gif" />
+        </div>
+        <div *ngIf="!boards.talks.length && !isLoading">
+            <span class="no-board">No Cards to display</span>
+        </div>
+
     </div>
-    <div *ngIf="!boards.talks.length && !isLoading">
-        <span class="no-board">No Cards to display</span>
-    </div>
+    <!-- End of Blocks  -->
 
 </div>
