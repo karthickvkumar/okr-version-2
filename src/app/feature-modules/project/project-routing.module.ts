@@ -8,9 +8,9 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [
-  { path: 'workflow', component: BoardsComponent },
+  { path: '', component: BoardsComponent },
   {
-    path: '', component: WorkflowComponent,
+    path: 'workflow', component: WorkflowComponent,
     children: [
       { path: '', component: NestedPlannerComponent },
       { path: 'timeline', component: TimelineComponent },
