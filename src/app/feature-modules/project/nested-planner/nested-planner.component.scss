@@ -168,20 +168,20 @@
   color:#aaa;
  }
 
-//  Custom
+//  Custom 
 .card-holder{
     position: relative;
     overflow-x:scroll;
     display:Block;
     white-space: nowrap;
-    height: 78vh;
+    height: 90vh;
     margin-left: 15px;
+    margin-top: 8px;
 }
 
 .holder{
     display:inline-block;
     position: absolute;
-    // height: 78vh;;
     width: 270px;
     background-color: #ebecf0;
     border-radius: 3px;
@@ -189,13 +189,54 @@
 
 .planner-wrapper{
     position: absolute;
-    top: 35px;
-    // margin-top: 35px;
-    // height: 66vh;
-    // overflow: scroll;
+    top: 42px;
 }
 
 .item-wrap{
     width: 250px;
     margin-left: 10px;
+}
+.holder-heading{
+    padding-left: 10px;
+    padding-top: 10px;
+    color: #172b4d;
+    display: inline-block;
+    width: 240px;
+}
+.inline-add-card{
+    color: #172b4d;
+    font-size: 18px;
+    margin-top: 4px;
+}
+.hold-btn{
+    height: 30px;
+    width: 30px;
+    right: 3px;
+    top: -5px;
+    background-color: #ebecf0;
+    border: none;
+}
+.hold-btn:hover{
+    border: none;
+    color: rgba(9,30,66,.08);
+    background-color: rgba(9,30,66,.08);
+}
+.inline-add-card:hover{
+    background-color: rgba(9,30,66,.08);
+}
+.create-card{
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 15px;
+    margin-top: 5px;
+    cursor: pointer;
+    padding:10px;
+    color: #172b4d;
+    margin-right: 10px;
+}
+.create-card:hover{
+    background-color: rgba(9,30,66,.08);
+}
+.create-card-icon{
+    margin-right: 10px;
 }

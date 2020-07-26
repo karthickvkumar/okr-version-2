@@ -1,5 +1,5 @@
 <div id="card-wrapper" [ngStyle]="{'width': innerWidth+'px'}">
-    <div style="padding-top: 10px; margin-bottom: 10px">
+    <!-- <div style="padding-top: 10px; margin-bottom: 10px">
         <span class="btn-label">Create Workflow :</span>
         <button style="background-color:#3f51b5; color: white" mat-raised-button (click)="newCard(boards)"
             [disabled]="isLoading">
@@ -8,7 +8,7 @@
         <button class="btn-back" mat-raised-button (click)="export()">
             Back to Boards
         </button>
-    </div>
+    </div> -->
     <!-- New Update -->
 
     <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex" let-nodes="nodes" let-nodeIndex="nodeIndex">
@@ -66,7 +66,10 @@
         <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
             [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
             <div>
-                {{holder}}
+                <h3 class="holder-heading">{{holder}}</h3>
+                <button *ngIf="firstIndex" nz-button nzType="default" [nzSize]="'small'" class="hold-btn"
+                    (click)="newCard(boards)"><i nz-icon nzType="plus-square" nzTheme="outline"
+                        class="inline-add-card"></i></button>
             </div>
         </div>
 
@@ -91,7 +94,20 @@
             <img class="card-loader" src="assets/images/loader.gif" />
         </div>
         <div *ngIf="!boards.talks.length && !isLoading">
-            <span class="no-board">No Cards to display</span>
+            <!-- <span class="no-board">No Cards to display</span> -->
+            <div class="card-holder">
+                <div class="holder" *ngFor="let holder of ['Workflow 1']" style="height: 100px;">
+                    <div>
+                        <h3 class="holder-heading">{{holder}}</h3>
+                        <!-- <button nz-button nzType="default" [nzSize]="'small'" class="hold-btn"><i nz-icon
+                                nzType="plus-square" nzTheme="outline" class="inline-add-card"></i></button> -->
+                    </div>
+                    <div class="create-card" (click)="newCard(boards)">
+                        <i nz-icon nzType="plus" nzTheme="outline" class="create-card-icon"></i>
+                        <span>Add a card</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

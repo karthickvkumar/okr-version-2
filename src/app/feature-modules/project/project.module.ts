@@ -5,6 +5,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -42,6 +43,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
     NzGridModule,
     NzLayoutModule,
     NzMenuModule,
+    NzButtonModule,
     NzBadgeModule,
     NzAvatarModule,
     NzDropDownModule,
