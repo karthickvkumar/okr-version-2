@@ -1,17 +1,36 @@
 <nz-header class="header">
-    <div class="logo">
-        <img src="assets/images/logo.png" class="logo-img" />
-    </div>
+    <!-- <div class="logo"> -->
+    <img src="assets/images/logo.png" class="logo-img" />
+    <!-- </div> -->
     <div class="nav-wrap">
         <ul class="nav-left">
-
+            <li>
+                <nz-input-group [nzSuffix]="suffixIconSearch" class="search">
+                    <input type="text" nz-input placeholder="Search planner or ticket" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </li>
+            <li>
+                <a nz-button class="btn-link btn-link-active" (click)="goToPlanner()" nzType="link">Nested Planner</a>
+            </li>
+            <li>
+                <a nz-button class="btn-link" (click)="goToTimeline()" nzType="link">Timeline</a>
+            </li>
+            <li>
+                <a nz-button class="btn-link" (click)="goToStatus()" nzType="link">Status</a>
+            </li>
         </ul>
         <ul class="nav-right">
             <li>
-
+                <a nz-button class="btn-link m-r-15" (click)="goToTimeline()" nzType="link">Boards</a>
             </li>
             <li>
-                <nz-avatar nzSize="large" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu"
+                <i nz-icon nzType="setting" class="btn-setting m-r-15" nzTheme="outline"></i>
+            </li>
+            <li>
+                <nz-avatar nzSize="medium" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu"
                     [nzPlacement]="'bottomRight'" class="user-img" nzSrc="">
                 </nz-avatar>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -21,8 +40,8 @@
                                 <nz-avatar nzSize="large" nzIcon="user" style="margin-top: 5px;" nzSrc="">
                                 </nz-avatar>
                                 <div class="m-l-10">
-                                    <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                                    <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                    <p class="m-b-0 m-t-15 text-dark font-weight-semibold">Karthick Kumar</p>
+                                    <!-- <p class="m-b-0 opacity-07">UI/UX Desinger</p> -->
                                 </div>
                             </div>
                         </li>

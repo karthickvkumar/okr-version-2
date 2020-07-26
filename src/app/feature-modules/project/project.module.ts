@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -12,6 +13,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragScrollModule } from "cdk-drag-scroll";
 
@@ -36,6 +38,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
   imports: [
     CommonModule,
     ProjectRoutingModule,
+    NzTypographyModule,
     NzGridModule,
     NzLayoutModule,
     NzMenuModule,
@@ -47,6 +50,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
     NzCardModule,
     NzSkeletonModule,
     NzDrawerModule,
+    NzInputModule,
     DragDropModule,
     DragScrollModule
   ]

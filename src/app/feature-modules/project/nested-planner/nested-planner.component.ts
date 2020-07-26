@@ -82,7 +82,7 @@ export class NestedPlannerComponent implements OnInit {
     this.listCards();
   }
 
-  @debounce(10)
+  @debounce(8)
   dragMoved(event) {
     let e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
 

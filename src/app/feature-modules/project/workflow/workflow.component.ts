@@ -21,16 +21,4 @@ export class WorkflowComponent implements OnInit {
   closeSettings() {
     this.isSettingsVisible = false;
   }
-
-  goToPlanner() {
-    this.router.navigateByUrl('/');
-  }
-
-  goToTimeline() {
-    this.router.navigateByUrl('/timeline');
-  }
-
-  goToStatus() {
-    this.router.navigateByUrl('/status');
-  }
 }
