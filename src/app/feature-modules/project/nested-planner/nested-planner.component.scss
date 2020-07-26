@@ -39,9 +39,9 @@
 
 .card-content{
     width: 240px;
-    padding-left: 15px;
-    margin-top: -30px;
-    color: #2b2b2b;
+    // padding-left: 15px;
+    // margin-top: -30px;
+    // color: #2b2b2b;
     font-size: 1em;
     line-height: 1.45;
     font-weight: normal;
@@ -121,24 +121,17 @@
 // NEW CSS
 
 .node-item{
-    // border: 1px solid black;
-    // margin-left: 15px;
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(9,30,66,.25);
     cursor: pointer;
-    display: block;
-    min-height: 20px;
-    position: relative;
-    text-decoration: none;
 }
 .child-item-wrap{
     // margin-left: 230px;
     // width: 250px;
 }
 .first-child{
-    // margin-top: -83px;
-    margin-top: -64px;
+    margin-top: -90px;
 }
 
 .cdk-drag-placeholder {
