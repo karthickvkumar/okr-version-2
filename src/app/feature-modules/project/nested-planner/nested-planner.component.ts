@@ -57,7 +57,7 @@ export class NestedPlannerComponent implements OnInit {
 
   cardHolder: any[] = [];
   cardHolderCount: number = 0;
-  cardHolderHeight: number | string = '140px';
+  cardHolderHeight: number | string = '150px';
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute) {
 
@@ -321,8 +321,8 @@ export class NestedPlannerComponent implements OnInit {
     let maxLevel = cards.filter((card) => {
       return card.length == maxValue
     });
-    this.cardHolder = maxLevel[0].map((index) => {
-      return "workflow " + index
+    this.cardHolder = maxLevel[0].map((max, index) => {
+      return "Workflow " + (index + 1);
     })
   }
 
@@ -384,7 +384,7 @@ export class NestedPlannerComponent implements OnInit {
   getHeight() {
     const height = this.document.getElementById("main").clientHeight;
     if (height) {
-      this.cardHolderHeight = (150 + height) + 'px';
+      this.cardHolderHeight = (160 + height) + 'px';
     }
   }
 }
