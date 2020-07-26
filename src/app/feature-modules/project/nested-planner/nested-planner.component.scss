@@ -11,7 +11,7 @@
     height: auto;
     display: table;
     table-layout: fixed;
-    width: 300px;
+    width: 250;
     cursor: pointer;
     margin-left: 10px;
     margin-right: 10px;
@@ -26,7 +26,7 @@
     table-layout: fixed;
     display: table;
     margin-left: 165px;
-    width: 300px;
+    width: 250px;
 }
 
 .margin-btm{
@@ -34,11 +34,11 @@
 }
 .action-btn{
     display: inline-flex;
-    margin-left: 150px;
+    margin-left: 125px;
 }
 
 .card-content{
-    width: 280px;
+    width: 240px;
     padding-left: 15px;
     margin-top: -30px;
     color: #2b2b2b;
@@ -57,7 +57,7 @@
     /* height: 50px; */
 }
 .card-text{
-    width: 245px;
+    width: 240px;
 }
 .card-speaker{
     display: block;
@@ -88,7 +88,7 @@
     padding-top: 10px;
     padding-bottom: 15px;
     font-weight: 400;
-    width: 290px;
+    width: 240px;
 }
 .card-status{
     color: green;
@@ -119,12 +119,18 @@
 }
 
 // NEW CSS
-.item-wrap{
-    width: 250px;
-}
+
 .node-item{
-    border: 1px solid black;
-    margin-bottom: 15px;
+    // border: 1px solid black;
+    // margin-left: 15px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    cursor: pointer;
+    display: block;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
 }
 .child-item-wrap{
     // margin-left: 230px;
@@ -150,27 +156,24 @@
 }
 
 .drop-inside {
-    border: 1px solid rgb(255, 0, 0);
+    border: 2px solid rgb(255, 0, 0);
 }
 
 .drop-before {
-    border-top: 35px solid rgb(0, 0, 128);
+    border-top: 2px solid rgb(0, 0, 128);
 }
 
 .drop-after {
-    border-bottom: 35px solid rgb(0, 0, 128);
+    border-bottom: 2px solid rgb(0, 0, 128);
 }
 
 .node-title {
-  background: #eee;
-  cursor: grab;
+//   background: #eee;
+//   cursor: grab;
 }
 
 .node-children {
-    // position: relative;
-    //transition: height 0.2s;
-    //margin-left: 40px;
-    margin-left: 270px;
+    margin-left: 280px;
     width: 250px;
 }
 .item-notes { 
@@ -180,21 +183,32 @@
 
 //  Custom
 .card-holder{
-    // position: relative;
-    // overflow: scroll;
-
+    position: relative;
     overflow-x:scroll;
     display:Block;
     white-space: nowrap;
+    height: 78vh;;
+    margin-left: 15px;
 }
 
 .holder{
     display:inline-block;
-    margin-right:10px;
-    position: relative;
-    border:1px solid red;
+    position: absolute;
+    height: 78vh;;
+    width: 270px;
+    background-color: #ebecf0;
+    border-radius: 3px;
 }
 
 .planner-wrapper{
     position: absolute;
+    top: 35px;
+    // margin-top: 35px;
+    // height: 66vh;
+    // overflow: scroll;
+}
+
+.item-wrap{
+    width: 250px;
+    margin-left: 10px;
 }

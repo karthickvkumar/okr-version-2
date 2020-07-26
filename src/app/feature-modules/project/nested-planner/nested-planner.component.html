@@ -12,7 +12,7 @@
     <!-- New Update -->
 
     <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex" let-nodes="nodes" let-nodeIndex="nodeIndex">
-        <div class="node-item" [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '15px'}" [attr.data-id]="node.id"
+        <div class="node-item" [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '8px'}" [attr.data-id]="node.id"
             [attr.id]="'node-'+node.id">
             <!-- Card Design -->
             <div class="node-title">
@@ -62,7 +62,8 @@
 
     <!-- Blocks -->
     <div class="card-holder">
-        <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index;">
+        <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
+            [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px'}">
             <div>
                 {{holder}}
             </div>

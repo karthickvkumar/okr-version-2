@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { debounce } from "@agentepsilon/decko";
 import { DOCUMENT } from "@angular/common";
 import { cloneDeep, max } from "lodash";
 import * as moment from 'moment';
@@ -80,6 +81,7 @@ export class NestedPlannerComponent implements OnInit {
     this.listCards();
   }
 
+  @debounce(10)
   dragMoved(event) {
     let e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
 
@@ -134,8 +136,6 @@ export class NestedPlannerComponent implements OnInit {
     let i = oldItemContainer.findIndex(c => c.id === draggedItemId);
     oldItemContainer.splice(i, 1);
 
-    console.log(this.dropActionTodo.action)
-
     switch (this.dropActionTodo.action) {
       case 'before':
       case 'after':
@@ -167,7 +167,8 @@ export class NestedPlannerComponent implements OnInit {
 
   showDragInfo() {
     this.clearDragInfo();
-    if (this.dropActionTodo) {
+
+    if (this.dropActionTodo && this.dropActionTodo.targetId) {
       this.document.getElementById("node-" + this.dropActionTodo.targetId).classList.add("drop-" + this.dropActionTodo.action);
     }
   }
@@ -231,6 +232,7 @@ export class NestedPlannerComponent implements OnInit {
     event.stopPropagation();
     let newCard = cloneDeep(this.cards[1]);
     newCard.boradId = this.boardId;
+    newCard.id = this.generateGuid();
     newCard.parentId = parentCard[index]['_id'];
     newCard.level = parentCard[index]['level'] + 1;
 
