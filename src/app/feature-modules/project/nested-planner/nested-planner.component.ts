@@ -99,7 +99,7 @@ export class NestedPlannerComponent implements OnInit {
       targetId: container.getAttribute("data-id")
     };
     const targetRect = container.getBoundingClientRect();
-    const oneThird = targetRect.height / 4;
+    const oneThird = targetRect.height / 3;
 
     if (event.pointerPosition.y - targetRect.top < oneThird) {
       // before
@@ -114,9 +114,6 @@ export class NestedPlannerComponent implements OnInit {
     this.showDragInfo();
   }
 
-  cardEdit() {
-    console.log("edit")
-  }
 
   drop(event) {
     if (!this.dropActionTodo) return;
@@ -125,12 +122,7 @@ export class NestedPlannerComponent implements OnInit {
     const parentItemId = event.previousContainer.id;
     const targetListId = this.getParentNodeId(this.dropActionTodo.targetId, this.boards.talks, 'main');
 
-    // console.log(
-    //   '\nmoving\n[' + draggedItemId + '] from list [' + parentItemId + ']',
-    //   '\n[' + this.dropActionTodo.action + ']\n[' + this.dropActionTodo.targetId + '] from list [' + targetListId + ']');
-
     const draggedItem = this.nodeLookup[draggedItemId];
-
     const oldItemContainer = parentItemId != 'main' ? this.nodeLookup[parentItemId].talks : this.boards.talks;
     const newContainer = targetListId != 'main' ? this.nodeLookup[targetListId].talks : this.boards.talks;
 
@@ -187,6 +179,9 @@ export class NestedPlannerComponent implements OnInit {
     this.document
       .querySelectorAll(".drop-inside")
       .forEach(element => element.classList.remove("drop-inside"));
+
+    this.getCardHolder();
+    this.getHeight();
   }
 
   listCards() {

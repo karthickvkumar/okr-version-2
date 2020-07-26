@@ -49,7 +49,8 @@
 
                 <div [ngClass]="{'first-child': firstIndex}"
                     *ngFor="let child of node.talks; let nodeIndex = index; let firstIndex = first; let lastIndex = last"
-                    cdkDrag [cdkDragData]="child.id" (cdkDragMoved)="dragMoved($event)">
+                    cdkDrag vsDragScroll [vsDragScrollContainer]="containerScroll" [cdkDragData]="child.id"
+                    (cdkDragMoved)="dragMoved($event)">
                     <ng-container
                         *ngTemplateOutlet="tmplNode,context:{node:child, nodes:node.talks, nodeIndex: nodeIndex, lastIndex:lastIndex}">
                     </ng-container>
@@ -61,7 +62,7 @@
     </ng-template>
 
     <!-- Blocks -->
-    <div class="card-holder">
+    <div class="card-holder" #containerScroll>
         <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
             [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
             <div>
@@ -75,7 +76,8 @@
 
             <div class="item-wrap"
                 *ngFor="let node of this.boards.talks, let nodeIndex = index; let firstIndex = first; let lastIndex = last"
-                cdkDrag [cdkDragData]="node.id" (cdkDragMoved)="dragMoved($event)">
+                cdkDrag vsDragScroll [vsDragScrollContainer]="containerScroll" [cdkDragData]="node.id"
+                (cdkDragMoved)="dragMoved($event)">
 
                 <ng-container
                     *ngTemplateOutlet="tmplNode,context:{node:node,nodes:this.boards.talks, nodeIndex:nodeIndex, firstIndex: firstIndex, lastIndex: lastIndex}">
