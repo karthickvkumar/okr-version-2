@@ -1,4 +1,4 @@
-<div id="card-wrapper" [ngStyle]="{'width': innerWidth+'px', 'height':innerHeight-heightOffset+'px'}">
+<div id="card-wrapper">
     <div style="padding-top: 10px; margin-bottom: 10px">
         <span class="btn-label">Create Workflow :</span>
         <button style="background-color:#3f51b5; color: white" mat-raised-button (click)="newCard(boards)"
@@ -63,7 +63,7 @@
     <!-- Blocks -->
     <div class="card-holder">
         <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
-            [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px'}">
+            [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
             <div>
                 {{holder}}
             </div>

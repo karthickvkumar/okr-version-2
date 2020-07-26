@@ -57,6 +57,7 @@ export class NestedPlannerComponent implements OnInit {
 
   cardHolder: any[] = [];
   cardHolderCount: number = 0;
+  cardHolderHeight: number | string = '140px';
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute) {
 
@@ -218,6 +219,7 @@ export class NestedPlannerComponent implements OnInit {
 
     card.talks.push(newCard);
     this.getCardHolder();
+    this.getHeight();
 
     this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
@@ -239,6 +241,7 @@ export class NestedPlannerComponent implements OnInit {
     if (card.talks) card.talks.push(newCard);
     if (!card.talks) card.talks = [newCard];
     this.getCardHolder();
+    this.getHeight();
 
     this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
@@ -272,6 +275,7 @@ export class NestedPlannerComponent implements OnInit {
     if (card) {
       talks.splice(index, 1);
       this.getCardHolder();
+      this.getHeight();
     }
     // this._dialog.open(DeleteTalkComponent, { data: card, width: '500px' })
     //   .afterClosed()
@@ -382,4 +386,10 @@ export class NestedPlannerComponent implements OnInit {
     return result;
   }
 
+  getHeight() {
+    const height = this.document.getElementById("main").clientHeight;
+    if (height) {
+      this.cardHolderHeight = (150 + height) + 'px';
+    }
+  }
 }
