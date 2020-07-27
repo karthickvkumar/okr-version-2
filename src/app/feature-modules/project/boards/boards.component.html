@@ -29,20 +29,23 @@
                 <div class="card-heading">
                     <i nz-icon nzType="user" class="card-head-icon" nzTheme="outline"></i>
                     <h4 class="inline" nz-typography>Personal Boards</h4>
-                    <i nz-icon nzType="plus" nzTheme="outline" class="board-add-icon"></i>
+                    <i *ngIf="boardList.length" (click)="newBoard($event)" nz-icon nzType="plus" nzTheme="outline"
+                        class="board-add-icon"></i>
                 </div>
-                <div *ngFor="let board of [1]" class="board" [ngClass]="{'create-card' : true}">
-                    <!-- <div class="card">
-                        <span class="card-text">Shinchan</span>
+                <div *ngFor="let board of boardList" class="board">
+                    <div class="card">
+                        <span class="card-text">{{board.title}}</span>
                         <button class="card-btn" nz-button nzType="primary" [nzSize]="'small'"><i nz-icon nzType="edit"
                                 nzTheme="outline"></i></button>
-                    </div> -->
+                    </div>
                     <!-- <div class="card">
                         <nz-skeleton [nzTitle]="false" [nzParagraph]="{ rows: 2, width: 100 }" [nzActive]="true"
                             class="card-loader">
                         </nz-skeleton>
                     </div> -->
-                    <div class="card" (click)="gotoBoard()">
+                </div>
+                <div class="board create-card" *ngIf="boardList.length == 0" (click)="newBoard($event)">
+                    <div class="card">
                         <span class="card-text">Create a board</span>
                         <button class="create-card-btn" nz-button nzType="primary" [nzSize]="'small'"><i nz-icon
                                 nzType="plus" nzTheme="outline"></i></button>
