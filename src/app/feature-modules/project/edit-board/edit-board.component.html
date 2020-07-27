@@ -1,5 +1,36 @@
-<p>edit-board works!</p>
+<form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" class="login-form" (ngSubmit)="onSave()">
+    <nz-form-item class="pad-4">
+        <nz-form-label class="label" nzRequired>Title</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter board title">
+            <input type="text" nz-input formControlName="title" placeholder="Board title" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4">
+        <nz-form-label class="label">Description</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter board description">
+            <textarea rows="4" type="text" nz-input formControlName="description"
+                placeholder="Board description"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4" *ngIf="board?.hasTeam">
+        <nz-form-label class="label">Invite Team Members</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter your email">
+            <input type="text" nz-input formControlName="assignedMembers" placeholder="Enter team member id" />
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
 <div *nzModalFooter>
-    <button nz-button nzType="default" (click)="onSave()">Cancel</button>
+    <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
     <button nz-button nzType="primary" (click)="onSave()">Save</button>
 </div>
+
+<!-- #0079bf -->
+<!-- #d38f34 -->
+<!-- #519839 -->
+<!-- #b04632 -->
+<!-- #89609d -->
+<!-- #ce5a90 -->
+<!-- #4abf6b -->
+<!-- #04aecd -->
+<!-- #838c91 -->

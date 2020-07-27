@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-edit-board',
@@ -8,16 +9,26 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class EditBoardComponent implements OnInit {
 
+  validateForm: FormGroup;
   @Input() board: any;
 
-  constructor(private modal: NzModalRef) { }
+  constructor(private modal: NzModalRef, private fb: FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.board)
+    const board = this.board;
+    this.validateForm = this.fb.group({
+      title: [board && board.title ? board.title : '', Validators.required],
+      description: [board && board.description ? board.description : ''],
+      assignedMembers: [board && board.members ? board.members : []],
+    });
   }
 
   onSave(): void {
-    this.modal.destroy(this.board);
+    this.modal.destroy(this.validateForm.value);
+  }
+
+  onCancel() {
+    this.modal.destroy();
   }
 
 }

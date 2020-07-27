@@ -63,39 +63,21 @@ export class BoardsComponent implements OnInit {
   editBoard(event, board) {
     event.stopPropagation();
     const modal = this.modal.create({
-      nzTitle: 'Modal Title',
       nzContent: EditBoardComponent,
       nzGetContainer: () => document.body,
       nzComponentParams: {
         board,
-      },
-      // nzFooter: [
-      // ]
+      }
     });
-    //const instance = modal.getContentComponent();
-    //modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    modal.afterClose.subscribe((result) => {
-      console.log('[afterClose] The result is:', result)
+    modal.afterClose.subscribe((newBoardData) => {
+      Object.assign(board, newBoardData);
+      // this.boardAPI.editBoard(board).subscribe((response) => {
+      //   this.boardAPI.notification("Board updated successfully");
+      // },
+      //   (error) => {
+      //     this.boardAPI.notification()
+      //   })
     });
-
-
-    // delay until modal instance created
-    // setTimeout(() => {
-    //   instance.subtitle = 'sub title is changed';
-    // }, 2000);
-
-    // this._dialog.open(EditTalkComponent, { data: { card: board }, width: '500px' })
-    //   .afterClosed()
-    //   .subscribe((newBoardData) => {
-    //     Object.assign(board, newBoardData);
-    //     this.boardAPI.editBoard(board).subscribe((response) => {
-    //       this.boardAPI.notification("Board updated successfully");
-    //     },
-    //       (error) => {
-    //         this.boardAPI.notification()
-    //       })
-    //   });
   }
 
   deleteBoard(board, index) {

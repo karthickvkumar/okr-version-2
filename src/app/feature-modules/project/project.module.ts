@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -16,6 +17,7 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragScrollModule } from "cdk-drag-scroll";
 
@@ -42,6 +44,8 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
   imports: [
     CommonModule,
     ProjectRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     NzTypographyModule,
     NzGridModule,
     NzLayoutModule,
@@ -57,6 +61,7 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
     NzDrawerModule,
     NzInputModule,
     NzModalModule,
+    NzFormModule,
     DragDropModule,
     DragScrollModule
   ],
