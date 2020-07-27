@@ -37,10 +37,10 @@
     cursor: pointer;
 }
 .board-warpper{
-    height: 90vh;
+    height: 92vh;
     background-color: white;
-    padding-left: 35px;
-    padding-top: 30px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 .menu-item-selected {
     background-color: #e6f7ff;
@@ -48,11 +48,12 @@
 }
 .inline{
     display: inline;
+    font-size: 15px;
     padding-left: 6px;
 }
 .card-heading{
-    margin-bottom: 25px;
-    padding-left: 10px;
+    margin-bottom: 10px;
+    // padding-left: 10px;
 }
 .card-head-icon{
     font-size: 16px;
@@ -63,10 +64,9 @@
     margin-bottom: 15px;
 }
 .card-loader{
-  height: 90px;
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding-top: 18px;
+    height: 50px;
+    border-radius: 3px;
+    margin-top: 20px;
 }
 .add-card{
     background-color: rgba(9,30,66,.08);
@@ -74,13 +74,30 @@
     border: none;
     color: #172b4d;
 }
-
 .card{
-    height: 90px;
-    width: 235px;
-    cursor: pointer;
-    border: 1px solid #e2e2e2;
-    border-radius: 10px;
+    margin-top:8px
+}
+.card-text{
+    font-size: 15px;
+    font-weight: 500;
+    width: 170px;
+    height: 45px;
+    overflow: hidden;
+    display: inline-block;
+    padding-left: 10px;
+}
+.card-btn-ex:hover{
+    background: white;
+    color: #636363;
+    border-color: #636363;
+    
+}
+.card-btn{
+    background: #9E9E9E;
+    color: white;
+    top: -30px;
+    border-color: #9E9E9E;
+    visibility:hidden;
 }
 .align-center-div{
     text-align: center;
@@ -92,4 +109,39 @@
 }
 .m-top-10{
     margin-top: 10px;
+}
+.board{
+    background-color: #ffffff;
+    border-radius: 3px;
+    display: inline-block !important;
+    color: #000000;
+    table-layout: fixed;
+    width: 200px;
+    height: 75px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #d5d5d5;
+}
+.board:hover{
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+    //transform: scale(1.1);
+}
+.board:hover .card-btn{
+    visibility:visible;
+}
+.create-card{
+    background-color: #eeeeee;
+    color: #0a1335;
+}
+.create-card-btn{
+    background: #9E9E9E;
+    color: white;
+    top: -30px;
+    border-color: #9E9E9E;
+}
+.board-add-icon{
+    font-size: 16px;
+    padding-left: 5px;
+    cursor: pointer;
 }

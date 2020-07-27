@@ -5,6 +5,8 @@ import { DOCUMENT } from "@angular/common";
 import { cloneDeep, max } from "lodash";
 import * as moment from 'moment';
 
+import { CommonService } from '../../../core-services/common.service';
+
 @Component({
   selector: 'app-nested-planner',
   templateUrl: './nested-planner.component.html',
@@ -59,8 +61,8 @@ export class NestedPlannerComponent implements OnInit {
   cardHolderCount: number = 0;
   cardHolderHeight: number | string = '150px';
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute) {
-
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute, private commonService: CommonService) {
+    this.commonService.setHeaderStore(true);
   }
 
   prepareDragDrop(nodes: any[]) {

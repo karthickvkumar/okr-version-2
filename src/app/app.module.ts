@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
+import { CommonService } from '../app/core-services/common.service';
+
 import { AuthModule } from './feature-modules/auth/auth.module';
 import { ProjectModule } from './feature-modules/project/project.module';
 import { PageNotFoundComponent } from './core-components/page-not-found/page-not-found.component';
@@ -33,7 +35,7 @@ registerLocaleData(en);
     AuthModule,
     ProjectModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,19 +12,19 @@
                     <i nz-icon nzType="search"></i>
                 </ng-template>
             </li>
-            <li>
+            <li *ngIf="headerOption">
                 <a nz-button class="btn-link btn-link-active" (click)="goToPlanner()" nzType="link">Nested Planner</a>
             </li>
-            <li>
+            <li *ngIf="headerOption">
                 <a nz-button class="btn-link" (click)="goToTimeline()" nzType="link">Timeline</a>
             </li>
-            <li>
+            <li *ngIf="headerOption">
                 <a nz-button class="btn-link" (click)="goToStatus()" nzType="link">Status</a>
             </li>
         </ul>
         <ul class="nav-right">
-            <li>
-                <a nz-button class="btn-link m-r-15" (click)="goToTimeline()" nzType="link">Boards</a>
+            <li *ngIf="headerOption">
+                <a nz-button class="btn-link m-r-15" (click)="goToBoards()" nzType="link">Boards</a>
             </li>
             <li>
                 <i nz-icon nzType="setting" class="btn-setting m-r-15" nzTheme="outline"></i>
