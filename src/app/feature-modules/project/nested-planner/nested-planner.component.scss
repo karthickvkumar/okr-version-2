@@ -3,32 +3,6 @@
     font-weight: 500;
     margin: 15px;
 }
-.epic{
-    background-color: #ffffff;
-    border-radius: 6px;
-    box-shadow: 1px 4px 10px 0px rgba(179,179,179,1);
-    color: #000000;
-    height: auto;
-    display: table;
-    table-layout: fixed;
-    width: 250;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.release{
-    background-color: #ffffff;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 1px 2px 6px 0px rgba(179,179,179,1);
-    color: #000000;
-    height: auto;
-    table-layout: fixed;
-    display: table;
-    margin-left: 165px;
-    width: 250px;
-}
-
 .margin-btm{
     margin-bottom: 10px;
 }
@@ -39,25 +13,29 @@
 
 .card-content{
     width: 240px;
-    // padding-left: 15px;
-    // margin-top: -30px;
-    // color: #2b2b2b;
     font-size: 1em;
     line-height: 1.45;
     font-weight: normal;
     letter-spacing: 0.005em;
+    padding-top: 8px;
+    padding-left: 8px;
 }
 .card-ellipse{
     margin-top: 24px;
 }
 .card-text-wrap{
-    display: inline-flex;
-    /* overflow: hidden; */
+    display: block;
+    height: 30px;
+    font-size: 15px;
+    font-weight: 400;
     text-overflow: ellipsis;
-    /* height: 50px; */
 }
 .card-text{
     width: 240px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 .card-speaker{
     display: block;
@@ -75,7 +53,7 @@
 .date-icon{
     position: absolute;
     top: 4px;
-    font-size: 16px;
+    font-size: 12px;
 }
 .date{
     margin-left: 18px;
@@ -124,14 +102,20 @@
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    position: relative;
     cursor: pointer;
 }
+
+.node-item:hover{
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+}
+
 .child-item-wrap{
     // margin-left: 230px;
     // width: 250px;
 }
 .first-child{
-    margin-top: -90px;
+    margin-top: -103px;
 }
 
 .cdk-drag-placeholder {
@@ -155,8 +139,7 @@
 }
 
 .node-title {
-//   background: #eee;
-//   cursor: grab;
+    // position: relative;
 }
 
 .node-children {
@@ -239,4 +222,15 @@
 }
 .create-card-icon{
     margin-right: 10px;
+}
+.add-card-btn{
+    position: absolute;
+    visibility: hidden;
+    left: 93%;
+    top: 35%;
+    background: #9E9E9E;
+    border-color: #9E9E9E;
+}
+.node-item:hover .add-card-btn{
+    visibility: visible;
 }

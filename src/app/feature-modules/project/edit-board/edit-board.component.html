@@ -21,6 +21,7 @@
 </form>
 
 <div *nzModalFooter>
+    <button nz-button nzType="danger" class="delete-btn" (click)="onDelete()">Delete</button>
     <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
     <button nz-button nzType="primary" (click)="onSave()">Save</button>
 </div>

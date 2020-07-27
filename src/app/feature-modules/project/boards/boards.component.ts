@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from '../../../core-services/common.service';
 import { ApiService } from '../../../core-services/api.service';
 import { EditBoardComponent } from '../edit-board/edit-board.component';
@@ -46,7 +46,7 @@ export class BoardsComponent implements OnInit {
     event.stopPropagation();
     const board = {
       title: "Board Title",
-      description: "Lorem ipsum dolor sit amet elit nisi, adipiscing consectetur.",
+      description: "",
       userId: this.userId
     }
     this.boardList.push(board);

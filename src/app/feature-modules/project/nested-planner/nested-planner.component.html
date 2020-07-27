@@ -16,7 +16,11 @@
             [attr.id]="'node-'+node.id">
             <!-- Card Design -->
             <div class="node-title">
-                <div class="action-btn">
+
+                <button class="add-card-btn" nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
+                    (click)="addCard($event, node, nodes,nodeIndex)">
+                    <i nz-icon nzType="right" nzTheme="outline"></i></button>
+                <!-- <div class="action-btn">
                     <button mat-icon-button matTooltip="Add new feature"
                         (click)="deleteCard($event,node, nodes, nodeIndex)">
                         Delete
@@ -25,15 +29,15 @@
                         (click)="addCard($event, node, nodes,nodeIndex)">
                         Add
                     </button>
-                </div>
+                </div> -->
                 <div class="card-content">
                     <div class="card-text-wrap">
                         <span class="card-text">{{node.title}}</span>
                         <!-- <span class="card-ellipse">...</span> -->
                     </div>
                     <div class="date-warp">
-                        <!-- <mat-icon class="date-icon">access_time</mat-icon> -->
-                        <!-- <span class="date">{{node?.selectedDate?.end}}</span> -->
+                        <i nz-icon class="date-icon" nzType="clock-circle" nzTheme="outline"></i>
+                        <span class="date">{{node?.selectedDate?.end | dayMonth}}</span>
                     </div>
                     <div class="speaker-wrap">
                         <span class="card-status">{{node?.status | uppercase}}</span>

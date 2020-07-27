@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounce } from "@agentepsilon/decko";
 import { DOCUMENT } from "@angular/common";
 import { cloneDeep, max } from "lodash";
 import * as moment from 'moment';
 
+import { EditCardComponent } from '../edit-card/edit-card.component';
 import { CommonService } from '../../../core-services/common.service';
 
 @Component({
@@ -59,9 +61,9 @@ export class NestedPlannerComponent implements OnInit {
 
   cardHolder: any[] = [];
   cardHolderCount: number = 0;
-  cardHolderHeight: number | string = '150px';
+  cardHolderHeight: number | string = '160px';
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute, private commonService: CommonService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute, private commonService: CommonService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.commonService.setHeaderStore(true);
   }
 

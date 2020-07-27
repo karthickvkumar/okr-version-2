@@ -24,8 +24,7 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
-  ],
+    PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

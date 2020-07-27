@@ -27,6 +27,10 @@ export class EditBoardComponent implements OnInit {
     this.modal.destroy(this.validateForm.value);
   }
 
+  onDelete() {
+
+  }
+
   onCancel() {
     this.modal.destroy();
   }

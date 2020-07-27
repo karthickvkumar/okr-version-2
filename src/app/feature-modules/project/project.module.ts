@@ -30,6 +30,8 @@ import { StatusComponent } from './status/status.component';
 import { HeaderComponent } from '../../core-components/header/header.component';
 import { WorkflowComponent } from './workflow/workflow.component';
 import { EditBoardComponent } from './edit-board/edit-board.component';
+import { EditCardComponent } from './edit-card/edit-card.component';
+import { DayMonthPipe } from '../../core-pipes/day-month.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
     StatusComponent,
     HeaderComponent,
     WorkflowComponent,
-    EditBoardComponent],
+    EditBoardComponent,
+    EditCardComponent,
+    DayMonthPipe],
   imports: [
     CommonModule,
     ProjectRoutingModule,
