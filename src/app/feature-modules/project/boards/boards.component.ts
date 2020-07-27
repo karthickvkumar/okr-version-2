@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from '../../../core-services/common.service';
 import { ApiService } from '../../../core-services/api.service';
+import { EditBoardComponent } from '../edit-board/edit-board.component';
 
 @Component({
   selector: 'app-boards',
@@ -18,7 +20,7 @@ export class BoardsComponent implements OnInit {
 
   heightOffset: number = 65;
 
-  constructor(private commonService: CommonService, private router: Router, private route: ActivatedRoute, private boardAPI: ApiService) { }
+  constructor(private commonService: CommonService, private router: Router, private route: ActivatedRoute, private boardAPI: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.commonService.setHeaderStore(false);
@@ -41,7 +43,7 @@ export class BoardsComponent implements OnInit {
   }
 
   newBoard(event) {
-    event.preventDefault();
+    event.stopPropagation();
     const board = {
       title: "Board Title",
       description: "Lorem ipsum dolor sit amet elit nisi, adipiscing consectetur.",
@@ -58,7 +60,31 @@ export class BoardsComponent implements OnInit {
     //   });
   }
 
-  editBoard(board) {
+  editBoard(event, board) {
+    event.stopPropagation();
+    const modal = this.modal.create({
+      nzTitle: 'Modal Title',
+      nzContent: EditBoardComponent,
+      nzGetContainer: () => document.body,
+      nzComponentParams: {
+        board,
+      },
+      // nzFooter: [
+      // ]
+    });
+    //const instance = modal.getContentComponent();
+    //modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe((result) => {
+      console.log('[afterClose] The result is:', result)
+    });
+
+
+    // delay until modal instance created
+    // setTimeout(() => {
+    //   instance.subtitle = 'sub title is changed';
+    // }, 2000);
+
     // this._dialog.open(EditTalkComponent, { data: { card: board }, width: '500px' })
     //   .afterClosed()
     //   .subscribe((newBoardData) => {

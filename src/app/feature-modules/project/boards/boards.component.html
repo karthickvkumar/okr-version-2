@@ -29,14 +29,14 @@
                 <div class="card-heading">
                     <i nz-icon nzType="user" class="card-head-icon" nzTheme="outline"></i>
                     <h4 class="inline" nz-typography>Personal Boards</h4>
-                    <i *ngIf="boardList.length" (click)="newBoard($event)" nz-icon nzType="plus" nzTheme="outline"
-                        class="board-add-icon"></i>
+                    <button *ngIf="boardList.length" (click)="newBoard($event)" class="board-add-icon" nz-button
+                        nzType="primary" [nzSize]="'small'"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
                 </div>
                 <div *ngFor="let board of boardList" class="board">
                     <div class="card">
-                        <span class="card-text">{{board.title}}</span>
-                        <button class="card-btn" nz-button nzType="primary" [nzSize]="'small'"><i nz-icon nzType="edit"
-                                nzTheme="outline"></i></button>
+                        <span class="card-text" (click)="gotoBoard()">{{board.title}}</span>
+                        <button (click)="editBoard($event, board)" class="card-btn" nz-button nzType="primary"
+                            [nzSize]="'small'"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
                     </div>
                     <!-- <div class="card">
                         <nz-skeleton [nzTitle]="false" [nzParagraph]="{ rows: 2, width: 100 }" [nzActive]="true"

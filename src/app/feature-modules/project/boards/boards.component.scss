@@ -81,7 +81,7 @@
     font-size: 15px;
     font-weight: 500;
     width: 170px;
-    height: 45px;
+    height: 62px;
     overflow: hidden;
     display: inline-block;
     padding-left: 10px;
@@ -95,7 +95,7 @@
 .card-btn{
     background: #9E9E9E;
     color: white;
-    top: -30px;
+    top: -48px;
     border-color: #9E9E9E;
     visibility:hidden;
 }
@@ -137,21 +137,25 @@
 .create-card-btn{
     background: #9E9E9E;
     color: white;
-    top: -30px;
+    top: -48px;
     border-color: #9E9E9E;
 }
 .board-add-icon{
-    font-size: 16px;
-    margin-left: 5px;
-    width: 22px;
-    height: 18px;
-    background: white;
-    color:#9E9E9E;
-    border:1px solid #9E9E9E;
-    border-radius: 3px;
-    cursor: pointer;
-}
-.board-add-icon:hover{
+    font-size: 14px;
     background: #9E9E9E;
     color: white;
+    border-color: #9E9E9E;
+}
+.hold-btn{
+    height: 30px;
+    width: 30px;
+    right: 3px;
+    top: -5px;
+    background-color: #ebecf0;
+    border: none;
+}
+.hold-btn:hover{
+    border: none;
+    color: rgba(9,30,66,.08);
+    background-color: rgba(9,30,66,.08);
 }

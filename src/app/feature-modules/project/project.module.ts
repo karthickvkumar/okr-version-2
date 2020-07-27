@@ -15,6 +15,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragScrollModule } from "cdk-drag-scroll";
 
@@ -26,6 +27,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { StatusComponent } from './status/status.component';
 import { HeaderComponent } from '../../core-components/header/header.component';
 import { WorkflowComponent } from './workflow/workflow.component';
+import { EditBoardComponent } from './edit-board/edit-board.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { WorkflowComponent } from './workflow/workflow.component';
     TimelineComponent,
     StatusComponent,
     HeaderComponent,
-    WorkflowComponent],
+    WorkflowComponent,
+    EditBoardComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,
@@ -53,8 +56,10 @@ import { WorkflowComponent } from './workflow/workflow.component';
     NzSkeletonModule,
     NzDrawerModule,
     NzInputModule,
+    NzModalModule,
     DragDropModule,
     DragScrollModule
-  ]
+  ],
+  entryComponents: [EditBoardComponent]
 })
 export class ProjectModule { }
