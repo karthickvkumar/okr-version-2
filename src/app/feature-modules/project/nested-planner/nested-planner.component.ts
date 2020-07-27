@@ -22,15 +22,15 @@ export class NestedPlannerComponent implements OnInit {
 
   cardSchema: any = {
     title: "Workflow Title",
-    description: "Agreed joy vanity regret met may ladies oppose who. Mile fail as left as hard eyes. Meet made call in mean four year it to.",
-    author: 'Pramod George',
+    description: "",
+    author: '',
     image: '',
     tags: [],
     status: 'ToDo',
     createdAt: '',
     selectedDate: {
-      start: moment(new Date),
-      end: moment(new Date)
+      start: new Date(),
+      end: new Date()
     },
     color: '',
     talks: []
@@ -254,6 +254,18 @@ export class NestedPlannerComponent implements OnInit {
 
   editCard(event, card, talks, index) {
     event.stopPropagation();
+    console.log(card, talks, index)
+    const modal = this.modal.create({
+      nzContent: EditCardComponent,
+      nzComponentParams: {
+        card,
+      },
+      nzStyle: { width: "750px", top: "40px" },
+      nzBodyStyle: { height: "75vh" }
+    });
+    modal.afterClose.subscribe((newCardData) => {
+      console.log(newCardData)
+    });
     // this._dialog.open(EditTalkComponent, { data: { card }, width: '500px' })
     //   .afterClosed()
     //   .subscribe((newTalkData) => {

@@ -13,7 +13,7 @@
 
     <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex" let-nodes="nodes" let-nodeIndex="nodeIndex">
         <div class="node-item" [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '8px'}" [attr.data-id]="node.id"
-            [attr.id]="'node-'+node.id">
+            [attr.id]="'node-'+node.id" (click)="editCard($event, node, nodes,nodeIndex)">
             <!-- Card Design -->
             <div class="node-title">
 

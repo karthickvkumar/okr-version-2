@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
+
 import en from '@angular/common/locales/en';
 
 import { CommonService } from '../app/core-services/common.service';

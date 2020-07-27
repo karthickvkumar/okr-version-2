@@ -1,1 +1,39 @@
-<p>edit-card works!</p>
+<form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" class="login-form" (ngSubmit)="onSave()">
+    <nz-form-item class="pad-4" class="no-margin">
+        <nz-form-label class="label" nzRequired>Title</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter card title">
+            <input type="text" nz-input formControlName="title" placeholder="Card title" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4" class="no-margin">
+        <nz-form-label class="label">Description</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter card description">
+            <textarea rows="4" type="text" nz-input formControlName="description"
+                placeholder="Card description"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4" class="no-margin">
+        <nz-form-label class="label">Author</nz-form-label>
+        <nz-form-control nzErrorTip="Please enter author name">
+            <input type="text" nz-input formControlName="author" placeholder="Author name" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4" class="no-margin">
+        <nz-form-label class="label">Start & End Date</nz-form-label>
+        <nz-form-control nzErrorTip="Please select start & end date">
+            <nz-range-picker formControlName="selectedDate"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="pad-4" class="no-margin">
+        <nz-form-label class="label">Status</nz-form-label>
+        <nz-select formControlName="status">
+            <nz-option *ngFor="let card of cardStatus" [nzLabel]="card.name" [nzValue]="card.name"></nz-option>
+        </nz-select>
+    </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+    <button nz-button nzType="danger" class="delete-btn" (click)="onDelete()">Delete</button>
+    <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
+    <button nz-button nzType="primary" (click)="onSave()">Save</button>
+</div>
