@@ -15,6 +15,11 @@ export class ApiService {
     return this.http.post(url, data);
   }
 
+  signup(data) {
+    let url: string = this.baseURL + "/signup";
+    return this.http.post(url, data);
+  }
+
   createBoard(board) {
     let url: string = this.baseURL + "/board/add";
     return this.http.post(url, board);

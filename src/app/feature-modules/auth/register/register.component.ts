@@ -5,6 +5,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
+import { ApiService } from "../../../core-services/api.service";
 
 @Component({
   selector: 'app-register',
@@ -16,25 +17,31 @@ export class RegisterComponent implements OnInit {
   validateForm!: FormGroup;
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private socialAuthService: AuthService) { }
+  constructor(private fb: FormBuilder, private socialAuthService: AuthService, private apiService: ApiService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       userName: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    if (this.validateForm.status == "VALID") {
+      this.isLoading = true;
+      const userInfo = {
+        username: this.validateForm.value.userName,
+        email: this.validateForm.value.email,
+        image: this.validateForm.value.password
+      }
+      this.apiService.signup(userInfo).subscribe((response) => {
+        this.isLoading = false;
+        console.log(response)
+      }, (error) => {
+        console.error(error)
+      })
     }
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
   }
 
   public socialSignIn(socialPlatform: string) {
@@ -45,12 +52,21 @@ export class RegisterComponent implements OnInit {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
 
+
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        console.log(socialPlatform + " sign in data : ", userData);
-        // Now sign-in with userData
-        // ...
-
+        this.isLoading = true;
+        const userInfo = {
+          username: userData.name,
+          email: userData.email,
+          image: userData.image
+        }
+        this.apiService.signup(userInfo).subscribe((response) => {
+          this.isLoading = false;
+          console.log(response)
+        }, (error) => {
+          console.error(error)
+        })
       }
     );
   }

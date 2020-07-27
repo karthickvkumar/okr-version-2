@@ -22,7 +22,7 @@
                     (ngSubmit)="submitForm()">
                     <nz-form-item class="pad-4">
                         <nz-form-label class="label" nzRequired>Email</nz-form-label>
-                        <nz-form-control nzErrorTip="Please enter your email">
+                        <nz-form-control nzErrorTip="Please enter a valid email">
                             <nz-input-group nzSize="large" nzPrefixIcon="mail">
                                 <input type="text" nz-input formControlName="email" placeholder="Email" />
                             </nz-input-group>
@@ -38,7 +38,7 @@
                     </nz-form-item>
                     <nz-form-item class="pad-4">
                         <nz-form-label class="label" nzRequired>Password</nz-form-label>
-                        <nz-form-control nzErrorTip="Please enter your password">
+                        <nz-form-control nzErrorTip="Password should be min 6 letters">
                             <nz-input-group nzSize="large" nzPrefixIcon="lock">
                                 <input type="password" nz-input formControlName="password" placeholder="Password" />
                             </nz-input-group>
@@ -48,9 +48,9 @@
                     <div nz-row class="signup-row">
                         <div nz-col>
                             <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
-                                nzType="primary" [disabled]="!validateForm.valid">Sign Up</button>
+                                nzType="primary">Sign Up</button>
                         </div>
-
+                        <!-- [disabled]="!validateForm.valid" -->
                     </div>
 
                 </form>

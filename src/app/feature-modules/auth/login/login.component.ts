@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from "../../../core-services/api.service";
 
 @Component({
   selector: 'app-login',
@@ -12,22 +13,29 @@ export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
-      userName: ['', [Validators.required]],
+      userName: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
   }
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    const userInfo = {
+      email: this.validateForm.value.userName,
+      password: this.validateForm.value.password
     }
+
     this.isLoading = true;
-    this.router.navigateByUrl('/boards');
+    this.apiService.login(userInfo).subscribe((response) => {
+      this.isLoading = false;
+      this.router.navigateByUrl('/boards');
+    }, (error) => {
+      this.isLoading = false;
+      console.error(error)
+    })
   }
 
   gotoSignUp() {

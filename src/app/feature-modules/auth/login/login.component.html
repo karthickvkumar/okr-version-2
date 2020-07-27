@@ -10,10 +10,10 @@
                 <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" class="login-form"
                     (ngSubmit)="submitForm()">
                     <nz-form-item>
-                        <nz-form-label class="label" nzRequired>Username</nz-form-label>
-                        <nz-form-control nzErrorTip="Please enter your username">
-                            <nz-input-group nzSize="large" nzPrefixIcon="user">
-                                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                        <nz-form-label class="label" nzRequired>Email</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter a vaild email">
+                            <nz-input-group nzSize="large" nzPrefixIcon="mail">
+                                <input type="text" nz-input formControlName="userName" placeholder="Email Id" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -32,8 +32,7 @@
                         </div>
                         <div nz-col nzSpan="6">
                             <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
-                                nzType="primary">Login</button>
-                            <!-- [disabled]="!validateForm.valid" -->
+                                nzType="primary" [disabled]="!validateForm.valid">Login</button>
                         </div>
                     </div>
 
