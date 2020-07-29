@@ -13,23 +13,12 @@
 
     <ng-template #tmplNode let-node="node" let-lastIndex="lastIndex" let-nodes="nodes" let-nodeIndex="nodeIndex">
         <div class="node-item" [ngStyle]="{'margin-bottom' : lastIndex ? '0px' : '8px'}" [attr.data-id]="node.id"
-            [attr.id]="'node-'+node.id" (click)="editCard($event, node, nodes,nodeIndex)">
+            [attr.id]="'node-'+node.id">
             <!-- Card Design -->
-            <div class="node-title">
-
+            <div class="node-title" *ngIf="!node.untouched" (click)="editCard($event, node, nodes,nodeIndex)">
                 <button class="add-card-btn" nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
                     (click)="addCard($event, node, nodes,nodeIndex)">
                     <i nz-icon nzType="right" nzTheme="outline"></i></button>
-                <!-- <div class="action-btn">
-                    <button mat-icon-button matTooltip="Add new feature"
-                        (click)="deleteCard($event,node, nodes, nodeIndex)">
-                        Delete
-                    </button>
-                    <button mat-icon-button matTooltip="Add new feature"
-                        (click)="addCard($event, node, nodes,nodeIndex)">
-                        Add
-                    </button>
-                </div> -->
                 <div class="card-content">
                     <div class="card-text-wrap">
                         <span class="card-text">{{node.title}}</span>
@@ -45,7 +34,18 @@
                     </div>
                 </div>
             </div>
-
+            <div *ngIf="node.untouched" class="add-new-card">
+                <form [formGroup]="createCard" (ngSubmit)="addNewCard(node)">
+                    <textarea #addCardInput rows="2" type="text" nz-input placeholder="Enter a title for this card..."
+                        formControlName="cardName"></textarea>
+                    <div>
+                        <button nz-button class="add-card-button" [nzSize]="'small'" nzType="primary"
+                            [disabled]="!createCard.valid" [nzLoading]="createCardLoading">Add</button>
+                        <i nz-icon class="add-card-close" nzType="close" nzTheme="outline"
+                            (click)="cancelCard(nodes)"></i>
+                    </div>
+                </form>
+            </div>
             <!-- Card Design -->
             <div *ngIf="node.talks.length" class="node-children" cdkDropList [cdkDropListData]="node.talks"
                 [id]="node.id" [cdkDropListConnectedTo]="dropTargetIds" (cdkDropListDropped)="drop($event)"
@@ -66,16 +66,18 @@
     </ng-template>
 
     <!-- Blocks -->
-    <div class="card-holder" #containerScroll>
-        <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
-            [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
-            <div>
-                <h3 class="holder-heading">{{holder}}</h3>
-                <button *ngIf="firstIndex" nz-button nzType="default" [nzSize]="'small'" class="hold-btn"
-                    (click)="newCard(boards)"><i nz-icon nzType="plus-square" nzTheme="outline"
-                        class="inline-add-card"></i></button>
+    <div class="card-holder" #containerScroll *ngIf="!isLoading">
+        <ng-container *ngIf="boards.talks.length">
+            <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
+                [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
+                <div>
+                    <h3 class="holder-heading">{{holder}}</h3>
+                    <button *ngIf="disableNewCard && firstIndex" nz-button nzType="default" [nzSize]="'small'"
+                        class="hold-btn" (click)="newCard(boards)"><i nz-icon nzType="plus-square" nzTheme="outline"
+                            class="inline-add-card"></i></button>
+                </div>
             </div>
-        </div>
+        </ng-container>
 
 
         <div cdkDropList [cdkDropListData]="this.boards.talks" [id]="'main'" [cdkDropListConnectedTo]="dropTargetIds"
@@ -100,7 +102,7 @@
         <div *ngIf="!boards.talks.length && !isLoading">
             <!-- <span class="no-board">No Cards to display</span> -->
             <div class="card-holder">
-                <div class="holder" *ngFor="let holder of ['Workflow 1']" style="height: 100px;">
+                <div class="holder" *ngFor="let holder of ['Column 1']" style="height: 100px;">
                     <div>
                         <h3 class="holder-heading">{{holder}}</h3>
                         <!-- <button nz-button nzType="default" [nzSize]="'small'" class="hold-btn"><i nz-icon
@@ -116,5 +118,7 @@
 
     </div>
     <!-- End of Blocks  -->
-
+    <div class="loader-wrap" *ngIf="isLoading">
+        <nz-spin class="loader-icon" nzSimple [nzSize]="'large'"></nz-spin>
+    </div>
 </div>

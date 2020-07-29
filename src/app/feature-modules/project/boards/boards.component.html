@@ -35,7 +35,7 @@
                 </div>
                 <div *ngFor="let board of boardList; let boardIndex = index;" class="board">
                     <div class="card" *ngIf="!board.untouched">
-                        <span class="card-text" (click)="gotoBoard()">{{board.title}}</span>
+                        <span class="card-text" (click)="loadBoard(board)">{{board.title}}</span>
                         <button (click)="editBoard($event, board,boardIndex)" class="card-btn" nz-button
                             nzType="primary" [nzSize]="'small'"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
                     </div>

@@ -138,7 +138,9 @@ export class BoardsComponent implements OnInit {
 
   loadBoard(board) {
     if (board._id) {
-      this.router.navigateByUrl('/boards/' + board._id);
+      localStorage.setItem('boardId', board._id);
+      this.commonService.setHeaderStore(true);
+      this.router.navigateByUrl('/workflow');
     } else {
       this.boardAPI.notification()
     }

@@ -234,3 +234,35 @@
 .node-item:hover .add-card-btn{
     visibility: visible;
 }
+.add-new-card{
+    height: 90px;
+}
+
+.add-card-button{
+    margin-left: 5px;
+    font-size: 12px;
+    margin-top: 3px;
+}
+.add-card-close{
+    font-size: 18px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.loader-wrap{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 92vh;
+}
+.loader-icon{
+    margin: 0 auto;
+}
+.loader-wrap{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 90vh;
+}
+.loader-icon{
+    margin: 0 auto;
+}

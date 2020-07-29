@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject, HostListener, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, ElementRef, ViewContainerRef, ViewChildren, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounce } from "@agentepsilon/decko";
@@ -8,6 +9,7 @@ import * as moment from 'moment';
 
 import { EditCardComponent } from '../edit-card/edit-card.component';
 import { CommonService } from '../../../core-services/common.service';
+import { ApiService } from '../../../core-services/api.service';
 
 @Component({
   selector: 'app-nested-planner',
@@ -21,12 +23,13 @@ export class NestedPlannerComponent implements OnInit {
   };
 
   cardSchema: any = {
-    title: "Workflow Title",
+    title: "",
     description: "",
     author: '',
     image: '',
     tags: [],
     status: 'ToDo',
+    untouched: true,
     createdAt: '',
     selectedDate: {
       start: new Date(),
@@ -63,7 +66,12 @@ export class NestedPlannerComponent implements OnInit {
   cardHolderCount: number = 0;
   cardHolderHeight: number | string = '160px';
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private route: ActivatedRoute, private commonService: CommonService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
+  disableNewCard: boolean = true;
+  createCard: FormGroup;
+  createCardLoading: boolean = false;
+  @ViewChildren('addBoardInput') textarea: any;
+
+  constructor(@Inject(DOCUMENT) private document: Document, private fb: FormBuilder, private renderer: Renderer2, private el: ElementRef, private router: Router, private route: ActivatedRoute, private commonService: CommonService, private modal: NzModalService, private viewContainerRef: ViewContainerRef, private boardAPI: ApiService) {
     this.commonService.setHeaderStore(true);
   }
 
@@ -82,8 +90,41 @@ export class NestedPlannerComponent implements OnInit {
       return { ...this.cardSchema, cardType: card.cardType, color: card.color };
     });
 
-    this.boardId = this.route.snapshot.params['id'];
+    this.boardId = localStorage.getItem('boardId');
+    this.createCard = this.fb.group({
+      cardName: ['', [Validators.required]],
+    });
     this.listCards();
+  }
+
+  addNewCard(card) {
+    this.createCardLoading = true;
+    Object.assign(card, { title: this.createCard.value.cardName });
+    console.log(card)
+
+    this.boardAPI.createCard(card).subscribe((response: any) => {
+      this.disableNewCard = true;
+      this.createCardLoading = false;
+      Object.assign(card, response);
+      Object.assign(card, { untouched: false });
+      this.createCard.setValue({
+        cardName: ''
+      });
+    },
+      (error) => {
+        this.disableNewCard = true;
+        this.createCardLoading = false;
+        this.boardAPI.notification();
+      });
+  }
+
+  cancelCard(cardList) {
+    this.disableNewCard = true;
+    const index = cardList.length - 1;
+    cardList.splice(index, 1);
+    // this.createCard.setValue({
+    //   boardName: ''
+    // });
   }
 
   @debounce(8)
@@ -189,18 +230,20 @@ export class NestedPlannerComponent implements OnInit {
   }
 
   listCards() {
-    this.isLoading = false;
-    // this.boardAPI.getCards(this.boardId).subscribe((response) => {
-    //   this.isLoading = false;
-    //   this.boards.talks = this.arrangeCards(response);
-    // this.getCardHolder();
-    //   if (this.boards.talks.length > 0) this.boardAPI.notification("Cards are loaded successfully")
-    //   if (this.boards.talks.length == 0) this.boardAPI.notification("There is no cards to display")
-    // },
-    //   (error) => {
-    //     this.isLoading = false;
-    //     this.boardAPI.notification();
-    //   })
+    this.isLoading = true;
+    this.boardAPI.getCards(this.boardId).subscribe((response) => {
+      this.isLoading = false;
+      this.boards.talks = this.arrangeCards(response);
+      this.getCardHolder();
+      setTimeout(() => {
+        this.getHeight();
+        this.prepareDragDrop(this.boards.talks);
+      }, 200)
+    },
+      (error) => {
+        this.isLoading = false;
+        this.boardAPI.notification();
+      })
   }
 
   @HostListener('window:resize', ['$event'])
@@ -219,14 +262,8 @@ export class NestedPlannerComponent implements OnInit {
     card.talks.push(newCard);
     this.getCardHolder();
     this.getHeight();
-
-    this.prepareDragDrop(this.boards.talks);
-    // this.boardAPI.createCard(newCard).subscribe((response) => {
-    //   this.boardAPI.notification("Cards created successfully");
-    // },
-    //   (error) => {
-    //     this.boardAPI.notification();
-    //   });
+    this.disableNewCard = false;
+    // this.prepareDragDrop(this.boards.talks);
   }
 
   addCard(event, card, parentCard, index) {
@@ -241,8 +278,7 @@ export class NestedPlannerComponent implements OnInit {
     if (!card.talks) card.talks = [newCard];
     this.getCardHolder();
     this.getHeight();
-
-    this.prepareDragDrop(this.boards.talks);
+    // this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
     //   Object.assign(newCard, response)
     //   this.boardAPI.notification("Cards created successfully");
@@ -308,6 +344,7 @@ export class NestedPlannerComponent implements OnInit {
   arrangeCards(cards) {
     let map = {}, node, roots = [], i;
     for (i = 0; i < cards.length; i += 1) {
+      cards[i].id = cards[i]._id;
       map[cards[i]._id] = i; // initialize the map
       cards[i].talks = []; // initialize the talks
     }
@@ -338,7 +375,7 @@ export class NestedPlannerComponent implements OnInit {
       return card.length == maxValue
     });
     this.cardHolder = maxLevel[0].map((max, index) => {
-      return "Workflow " + (index + 1);
+      return "Column " + (index + 1);
     })
   }
 
