@@ -8,6 +8,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -48,6 +49,7 @@ export function getAuthServiceConfigs() {
     NzFormModule,
     NzInputModule,
     NzButtonModule,
+    NzNotificationModule,
     SocialLoginModule
   ],
   providers: [

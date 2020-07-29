@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private alert: NzNotificationService) { }
   baseURL: string = "https://fpslabs.herokuapp.com/api"
 
   login(data) {
@@ -61,9 +61,11 @@ export class ApiService {
   }
 
 
-  notification(message = "Server Error, Please try again later") {
-    // this.snackBar.open(message, 'close', {
-    //   duration: 1000,
-    // });
+  notification() {
+    this.alert.create(
+      'error',
+      'Error',
+      'Server Error, Please try again later'
+    );
   }
 }

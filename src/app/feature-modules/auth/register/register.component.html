@@ -48,7 +48,7 @@
                     <div nz-row class="signup-row">
                         <div nz-col>
                             <button nz-button class="btn-width" [nzSize]="'large'" [nzLoading]="isLoading"
-                                nzType="primary">Sign Up</button>
+                                [disabled]="!validateForm.valid" nzType="primary">Sign Up</button>
                         </div>
                         <!-- [disabled]="!validateForm.valid" -->
                     </div>

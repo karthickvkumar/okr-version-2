@@ -111,17 +111,17 @@
     margin-top: 10px;
 }
 .board{
-    background-color: #ffffff;
+    background-color: #e6f7ff;
     border-radius: 3px;
     display: inline-block !important;
     color: #000000;
     table-layout: fixed;
     width: 200px;
-    height: 75px;
+    height: 80px;
     cursor: pointer;
     margin-right: 15px;
     margin-bottom: 15px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #94e9f4;
 }
 .board:hover{
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
@@ -133,6 +133,7 @@
 .create-card{
     background-color: #eeeeee;
     color: #0a1335;
+    border: 1px solid #c7c7c7;
 }
 .create-card-btn{
     background: #9E9E9E;
@@ -160,4 +161,25 @@
     border: none;
     color: rgba(9,30,66,.08);
     background-color: rgba(9,30,66,.08);
+}
+.textarea{
+    height: 45px;
+}
+.add-card-button{
+    margin-left: 5px;
+    font-size: 12px;
+}
+.add-card-close{
+    font-size: 18px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.loader-wrap{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 92vh;
+}
+.loader-icon{
+    margin: 0 auto;
 }

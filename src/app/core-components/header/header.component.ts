@@ -11,10 +11,15 @@ import { CommonService } from '../../core-services/common.service';
 export class HeaderComponent implements OnInit {
 
   headerOption: boolean;
+  user: any = {};
   constructor(private router: Router, private commonService: CommonService) { }
 
   ngOnInit() {
-    this.commonService.subscribeHeaderStore.subscribe(data => this.headerOption = data)
+    this.commonService.subscribeHeaderStore.subscribe(data => this.headerOption = data);
+    const userAuth = JSON.parse(localStorage.getItem('user'));
+    if (userAuth && userAuth._id) {
+      this.user = userAuth;
+    }
   }
 
   goToBoards() {
@@ -33,4 +38,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/workflow/status');
   }
 
+  onLogout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/');
+  }
 }

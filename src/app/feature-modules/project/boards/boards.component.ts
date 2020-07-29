@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewContainerRef, ViewChildren, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from '../../../core-services/common.service';
@@ -18,14 +19,25 @@ export class BoardsComponent implements OnInit {
   hasTeams: boolean = false;
   isLoading: boolean = false;
 
-  heightOffset: number = 65;
+  disableNewBoard: boolean = true;
+  createBoard: FormGroup;
+  createBoardLoading: boolean = false;
+  @ViewChildren('addBoardInput') textarea: any;
 
-  constructor(private commonService: CommonService, private router: Router, private route: ActivatedRoute, private boardAPI: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
+  constructor(private fb: FormBuilder, private renderer: Renderer2, private el: ElementRef, private commonService: CommonService, private router: Router, private route: ActivatedRoute, private boardAPI: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
+    const userAuth = JSON.parse(localStorage.getItem('user'));
+    if (!userAuth) {
+      this.router.navigateByUrl('/');
+      return;
+    }
+    this.userId = userAuth._id;
     this.commonService.setHeaderStore(false);
-    this.userId = localStorage.getItem('userId');
-    // this.listBoards();
+    this.createBoard = this.fb.group({
+      boardName: ['', [Validators.required]],
+    });
+    this.listBoards();
   }
 
   listBoards() {
@@ -33,8 +45,6 @@ export class BoardsComponent implements OnInit {
     this.boardAPI.getBoards(this.userId).subscribe((response: any[]) => {
       this.isLoading = false;
       this.boardList = response;
-      if (this.boardList.length > 0) this.boardAPI.notification("Board are loaded successfully");
-      if (this.boardList.length == 0) this.boardAPI.notification("There are no boards to display");
     },
       (error) => {
         this.isLoading = false;
@@ -42,25 +52,54 @@ export class BoardsComponent implements OnInit {
       })
   }
 
-  newBoard(event) {
-    event.stopPropagation();
-    const board = {
-      title: "Board Title",
-      description: "",
-      userId: this.userId
-    }
-    this.boardList.push(board);
-    // this.boardAPI.createBoard(board).subscribe((response: any) => {
-    //   Object.assign(board, response);
-    //   this.boardAPI.notification("Board created successfully");
-    // },
-    //   (error) => {
-    //     this.boardList.pop();
-    //     this.boardAPI.notification()
-    //   });
+  addNewBoard(board) {
+    this.createBoardLoading = true;
+    Object.assign(board, { title: this.createBoard.value.boardName });
+
+    this.boardAPI.createBoard(board).subscribe((response: any) => {
+      this.disableNewBoard = true;
+      this.createBoardLoading = false;
+      Object.assign(board, response);
+      Object.assign(board, { untouched: false });
+      this.createBoard.setValue({
+        boardName: ''
+      });
+    },
+      (error) => {
+        this.disableNewBoard = true;
+        this.createBoardLoading = false;
+        this.boardList.pop();
+        this.boardAPI.notification();
+      });
+
   }
 
-  editBoard(event, board) {
+  cancelBoard(boards) {
+    this.disableNewBoard = true;
+    const index = boards.length - 1;
+    boards.splice(index, 1);
+    this.createBoard.setValue({
+      boardName: ''
+    });
+  }
+
+  newBoard(event) {
+    event.stopPropagation();
+    this.disableNewBoard = false;
+    const board = {
+      title: "",
+      id: this.generateGuid(),
+      description: "",
+      userId: this.userId,
+      untouched: true
+    }
+    this.boardList.push(board);
+    setTimeout(() => {
+      this.textarea.first.nativeElement.focus();
+    }, 5);
+  }
+
+  editBoard(event, board, index) {
     event.stopPropagation();
     const modal = this.modal.create({
       nzContent: EditBoardComponent,
@@ -70,18 +109,15 @@ export class BoardsComponent implements OnInit {
       }
     });
     modal.afterClose.subscribe((newBoardData) => {
+      if (newBoardData == 'deleted') {
+        this.boardList.splice(index, 1);
+        return;
+      }
       Object.assign(board, newBoardData);
-      // this.boardAPI.editBoard(board).subscribe((response) => {
-      //   this.boardAPI.notification("Board updated successfully");
-      // },
-      //   (error) => {
-      //     this.boardAPI.notification()
-      //   })
     });
   }
 
   deleteBoard(board, index) {
-    this.boardList.splice(index, 1);
     // if (!board._id) {
     //   this.boardAPI.notification();
     //   return;
@@ -113,4 +149,15 @@ export class BoardsComponent implements OnInit {
     this.router.navigateByUrl('/workflow');
   }
 
+  generateGuid() {
+    let result, i, j;
+    result = '';
+    for (j = 0; j < 32; j++) {
+      if (j == 8 || j == 12 || j == 16 || j == 20)
+        result = result + '-';
+      i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+      result = result + i;
+    }
+    return result;
+  }
 }

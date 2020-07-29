@@ -25,18 +25,31 @@
                     <span class="list-text" nz-typography>Front End</span>
                 </div>
             </div>
-            <div nz-col nzSpan="19" class="board-warpper">
+            <div nz-col nzSpan="19" class="board-warpper" *ngIf="!isLoading">
                 <div class="card-heading">
                     <i nz-icon nzType="user" class="card-head-icon" nzTheme="outline"></i>
                     <h4 class="inline" nz-typography>Personal Boards</h4>
-                    <button *ngIf="boardList.length" (click)="newBoard($event)" class="board-add-icon" nz-button
-                        nzType="primary" [nzSize]="'small'"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+                    <button *ngIf="boardList.length && disableNewBoard" (click)="newBoard($event)"
+                        class="board-add-icon" nz-button nzType="primary" [nzSize]="'small'"><i nz-icon nzType="plus"
+                            nzTheme="outline"></i></button>
                 </div>
-                <div *ngFor="let board of boardList" class="board">
-                    <div class="card">
+                <div *ngFor="let board of boardList; let boardIndex = index;" class="board">
+                    <div class="card" *ngIf="!board.untouched">
                         <span class="card-text" (click)="gotoBoard()">{{board.title}}</span>
-                        <button (click)="editBoard($event, board)" class="card-btn" nz-button nzType="primary"
-                            [nzSize]="'small'"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+                        <button (click)="editBoard($event, board,boardIndex)" class="card-btn" nz-button
+                            nzType="primary" [nzSize]="'small'"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+                    </div>
+                    <div *ngIf="board.untouched">
+                        <form [formGroup]="createBoard" (ngSubmit)="addNewBoard(board)">
+                            <textarea #addBoardInput class="textarea" rows="2" type="text" nz-input
+                                placeholder="Enter a title for this board..." formControlName="boardName"></textarea>
+                            <div>
+                                <button nz-button class="add-card-button" [nzSize]="'small'" nzType="primary"
+                                    [disabled]="!createBoard.valid" [nzLoading]="createBoardLoading">Add</button>
+                                <i nz-icon class="add-card-close" nzType="close" nzTheme="outline"
+                                    (click)="cancelBoard(boardList)"></i>
+                            </div>
+                        </form>
                     </div>
                     <!-- <div class="card">
                         <nz-skeleton [nzTitle]="false" [nzParagraph]="{ rows: 2, width: 100 }" [nzActive]="true"
@@ -51,6 +64,9 @@
                                 nzType="plus" nzTheme="outline"></i></button>
                     </div>
                 </div>
+            </div>
+            <div class="loader-wrap" *ngIf="isLoading">
+                <nz-spin class="loader-icon" nzSimple [nzSize]="'large'"></nz-spin>
             </div>
         </div>
     </nz-content>

@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
+    const userAuth = JSON.parse(localStorage.getItem('user'));
+    if (userAuth && userAuth._id) {
+      this.router.navigateByUrl('/boards');
+    }
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -31,10 +35,12 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.apiService.login(userInfo).subscribe((response) => {
       this.isLoading = false;
+      const userAuth = JSON.stringify(response);
+      localStorage.setItem('user', userAuth);
       this.router.navigateByUrl('/boards');
     }, (error) => {
       this.isLoading = false;
-      console.error(error)
+      this.apiService.notification();
     })
   }
 

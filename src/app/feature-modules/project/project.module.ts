@@ -22,6 +22,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragScrollModule } from "cdk-drag-scroll";
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardsComponent } from './boards/boards.component';
@@ -71,7 +74,10 @@ import { DayMonthPipe } from '../../core-pipes/day-month.pipe';
     NzSelectModule,
     DragDropModule,
     DragScrollModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzSpinModule,
+    NzToolTipModule,
+    NzNotificationModule
   ],
   entryComponents: [EditBoardComponent, EditCardComponent]
 })
