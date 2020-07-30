@@ -55,17 +55,29 @@ export class ApiService {
     return this.http.put(url, card);
   }
 
+  reorder(positions) {
+    let url: string = this.baseURL + "/card/reorder";
+    return this.http.put(url, positions);
+  }
+
   deleteCard(cardId) {
     let url: string = this.baseURL + "/card/delete/" + cardId;
     return this.http.delete(url);
   }
-
 
   notification() {
     this.alert.create(
       'error',
       'Error',
       'Server Error, Please try again later'
+    );
+  }
+
+  warning(message) {
+    this.alert.create(
+      'warning',
+      'Warning',
+      message
     );
   }
 }

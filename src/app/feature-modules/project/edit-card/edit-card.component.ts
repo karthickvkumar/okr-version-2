@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { ApiService } from '../../../core-services/api.service';
 
 @Component({
   selector: 'app-edit-card',
@@ -12,9 +13,11 @@ export class EditCardComponent implements OnInit {
   @Input() card: any;
   formGroup: FormGroup;
   dateRange = [];
+  editInprogress: boolean = false;
+  deleteInprogress: boolean = false;
   cardStatus = [{ name: 'ToDo', color: '#3f51b5' }, { name: 'InProgress', color: '#ff9800' }, { name: 'Pending', color: '#e91e63' }, { name: 'Done', color: '#4caf50' }]
 
-  constructor(private modal: NzModalRef, public formBuilder: FormBuilder) {
+  constructor(private modal: NzModalRef, public formBuilder: FormBuilder, private boardAPI: ApiService) {
   }
 
   ngOnInit() {
@@ -35,14 +38,36 @@ export class EditCardComponent implements OnInit {
   }
 
   onSave(): void {
-    this.modal.destroy(this.formGroup.value);
+    this.editInprogress = true;
+    Object.assign(this.card, this.formGroup.value);
+    this.boardAPI.editCard(this.card).subscribe((response) => {
+      this.editInprogress = false;
+      this.modal.destroy(this.formGroup.value);
+    },
+      (error) => {
+        this.boardAPI.notification()
+      })
   }
 
   onDelete() {
-
+    this.deleteInprogress = true;
+    if (this.card.talks.length) {
+      this.deleteInprogress = false;
+      this.boardAPI.warning("Can't delete a parent card");
+      return;
+    }
+    this.boardAPI.deleteCard(this.card._id).subscribe((response) => {
+      this.deleteInprogress = false;
+      this.modal.destroy('deleted');
+    },
+      (error) => {
+        this.modal.destroy(false);
+        this.boardAPI.notification();
+      })
   }
 
   onCancel() {
     this.modal.destroy();
   }
+
 }

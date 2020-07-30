@@ -7,7 +7,7 @@ import * as moment from 'moment';
 export class DayMonthPipe implements PipeTransform {
 
   transform(value: any, ...args: unknown[]): any {
-    const date = moment(value).format("DD MMMM");
+    const date = moment(value[1]).format("DD MMMM");
     return date;
   }
 

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounce } from "@agentepsilon/decko";
 import { DOCUMENT } from "@angular/common";
-import { cloneDeep, max } from "lodash";
+import { cloneDeep, max, findIndex } from "lodash";
 import * as moment from 'moment';
 
 import { EditCardComponent } from '../edit-card/edit-card.component';
@@ -31,10 +31,7 @@ export class NestedPlannerComponent implements OnInit {
     status: 'ToDo',
     untouched: true,
     createdAt: '',
-    selectedDate: {
-      start: new Date(),
-      end: new Date()
-    },
+    selectedDate: [new Date(), new Date()],
     color: '',
     talks: []
   };
@@ -69,7 +66,7 @@ export class NestedPlannerComponent implements OnInit {
   disableNewCard: boolean = true;
   createCard: FormGroup;
   createCardLoading: boolean = false;
-  @ViewChildren('addBoardInput') textarea: any;
+  @ViewChildren('addCardInput') textarea: any;
 
   constructor(@Inject(DOCUMENT) private document: Document, private fb: FormBuilder, private renderer: Renderer2, private el: ElementRef, private router: Router, private route: ActivatedRoute, private commonService: CommonService, private modal: NzModalService, private viewContainerRef: ViewContainerRef, private boardAPI: ApiService) {
     this.commonService.setHeaderStore(true);
@@ -106,10 +103,11 @@ export class NestedPlannerComponent implements OnInit {
       this.disableNewCard = true;
       this.createCardLoading = false;
       Object.assign(card, response);
-      Object.assign(card, { untouched: false });
+      Object.assign(card, { untouched: false, id: response._id });
       this.createCard.setValue({
         cardName: ''
       });
+      this.prepareDragDrop(this.boards.talks);
     },
       (error) => {
         this.disableNewCard = true;
@@ -122,9 +120,11 @@ export class NestedPlannerComponent implements OnInit {
     this.disableNewCard = true;
     const index = cardList.length - 1;
     cardList.splice(index, 1);
-    // this.createCard.setValue({
-    //   boardName: ''
-    // });
+    this.createCard.setValue({
+      cardName: ''
+    });
+    this.getCardHolder();
+    this.getHeight();
   }
 
   @debounce(8)
@@ -177,24 +177,63 @@ export class NestedPlannerComponent implements OnInit {
     switch (this.dropActionTodo.action) {
       case 'before':
       case 'after':
+        draggedItem.parentId = this.nodeLookup[this.dropActionTodo.targetId].parentId;
+        const targetOrder = this.nodeLookup[this.dropActionTodo.targetId].order;
+        //const draggedOrder = draggedItem.order;
+        draggedItem.order = targetOrder;
+        draggedItem.level = this.nodeLookup[this.dropActionTodo.targetId].level;
+        this.nodeLookup[this.dropActionTodo.targetId].order = -1;
+
         const targetIndex = newContainer.findIndex(c => c.id === this.dropActionTodo.targetId);
         if (this.dropActionTodo.action == 'before') {
           newContainer.splice(targetIndex, 0, draggedItem);
         } else {
           newContainer.splice(targetIndex + 1, 0, draggedItem);
         }
+
+        const startIndex = findIndex(newContainer, ['order', -1]);
+        newContainer.slice(startIndex).forEach((card, index) => {
+          card.order = draggedItem.order + 1 + index;
+        })
+        const updatePosition = {
+          cards: newContainer
+        }
+        setTimeout(() => {
+          this.clearDragInfo(true);
+          this.getCardHolder();
+          this.getHeight();
+          this.prepareDragDrop(this.boards.talks);
+          this.boardAPI.reorder(updatePosition).subscribe((response) => {
+          },
+            (error) => {
+              this.boardAPI.notification()
+            })
+        }, 200);
         break;
 
       case 'inside':
+        draggedItem.parentId = this.nodeLookup[this.dropActionTodo.targetId].id;
+        draggedItem.order = this.nodeLookup[this.dropActionTodo.targetId].talks.length;
+        draggedItem.level = this.nodeLookup[this.dropActionTodo.targetId].level + 1;
+
         this.nodeLookup[this.dropActionTodo.targetId].talks.push(draggedItem)
+        setTimeout(() => {
+          this.clearDragInfo(true);
+          this.getCardHolder();
+          this.getHeight();
+          this.prepareDragDrop(this.boards.talks);
+          this.boardAPI.editCard(draggedItem).subscribe((response) => {
+          },
+            (error) => {
+              this.boardAPI.notification()
+            })
+        }, 200);
         break;
     }
-    setTimeout(() => {
-      this.clearDragInfo(true)
-    }, 200)
+
   }
 
-  getParentNodeId(id: string, nodesToSearch: any[], parentId: string): string {
+  getParentNodeId(id: string, nodesToSearch: any[], parentId: string) {
     for (let node of nodesToSearch) {
       if (node.id == id) return parentId;
       let ret = this.getParentNodeId(id, node.talks, node.id);
@@ -257,12 +296,16 @@ export class NestedPlannerComponent implements OnInit {
     newCard.boradId = this.boardId;
     newCard.id = this.generateGuid();
     newCard.parentId = null;
+    newCard.order = this.boards.talks.length;
     newCard.level = 1;
-
+    console.log(newCard)
     card.talks.push(newCard);
     this.getCardHolder();
     this.getHeight();
     this.disableNewCard = false;
+    setTimeout(() => {
+      this.textarea.first.nativeElement.focus();
+    }, 5);
     // this.prepareDragDrop(this.boards.talks);
   }
 
@@ -271,13 +314,17 @@ export class NestedPlannerComponent implements OnInit {
     let newCard = cloneDeep(this.cards[1]);
     newCard.boradId = this.boardId;
     newCard.id = this.generateGuid();
+    newCard.order = parentCard[index].talks.length;
     newCard.parentId = parentCard[index]['_id'];
     newCard.level = parentCard[index]['level'] + 1;
-
+    console.log(newCard)
     if (card.talks) card.talks.push(newCard);
     if (!card.talks) card.talks = [newCard];
     this.getCardHolder();
     this.getHeight();
+    setTimeout(() => {
+      this.textarea.first.nativeElement.focus();
+    }, 5);
     // this.prepareDragDrop(this.boards.talks);
     // this.boardAPI.createCard(newCard).subscribe((response) => {
     //   Object.assign(newCard, response)
@@ -290,7 +337,6 @@ export class NestedPlannerComponent implements OnInit {
 
   editCard(event, card, talks, index) {
     event.stopPropagation();
-    console.log(card, talks, index)
     const modal = this.modal.create({
       nzContent: EditCardComponent,
       nzComponentParams: {
@@ -300,7 +346,13 @@ export class NestedPlannerComponent implements OnInit {
       nzBodyStyle: { height: "75vh" }
     });
     modal.afterClose.subscribe((newCardData) => {
-      console.log(newCardData)
+      if (newCardData == 'deleted') {
+        talks.splice(index, 1);
+        this.getCardHolder();
+        this.getHeight();
+        return;
+      }
+      Object.assign(card, newCardData);
     });
     // this._dialog.open(EditTalkComponent, { data: { card }, width: '500px' })
     //   .afterClosed()
