@@ -37,6 +37,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
 import { EditBoardComponent } from './edit-board/edit-board.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 import { DayMonthPipe } from '../../core-pipes/day-month.pipe';
+import { InlineEditComponent } from '../../core-components/inline-edit/inline-edit.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { DayMonthPipe } from '../../core-pipes/day-month.pipe';
     WorkflowComponent,
     EditBoardComponent,
     EditCardComponent,
+    InlineEditComponent,
     DayMonthPipe],
   imports: [
     CommonModule,
@@ -79,6 +81,6 @@ import { DayMonthPipe } from '../../core-pipes/day-month.pipe';
     NzToolTipModule,
     NzNotificationModule
   ],
-  entryComponents: [EditBoardComponent, EditCardComponent]
+  entryComponents: [EditBoardComponent, EditCardComponent, InlineEditComponent]
 })
 export class ProjectModule { }

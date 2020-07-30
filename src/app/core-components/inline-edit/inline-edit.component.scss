@@ -1,0 +1,24 @@
+$lightGray: #c8c8c8;
+
+.cell {
+  width: 240px;
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 14px;
+  padding-left: 8px;
+  font-weight: 600;
+
+  &:hover {
+    cursor: pointer;
+    border: 2px dashed $lightGray;
+  }
+}
+
+.cellInput {
+  width: 240px;
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 14px;
+  padding-left: 8px;
+  font-weight: 600;
+}

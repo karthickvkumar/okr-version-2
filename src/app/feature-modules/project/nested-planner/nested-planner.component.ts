@@ -204,8 +204,10 @@ export class NestedPlannerComponent implements OnInit {
           this.getHeight();
           this.prepareDragDrop(this.boards.talks);
           this.boardAPI.reorder(updatePosition).subscribe((response) => {
+            console.log(response)
           },
             (error) => {
+              console.log(error)
               this.boardAPI.notification()
             })
         }, 200);
@@ -391,6 +393,10 @@ export class NestedPlannerComponent implements OnInit {
     //         })
     //     }
     //   });
+  }
+
+  inlineEditHolder(holderName) {
+    console.log(holderName)
   }
 
   arrangeCards(cards) {

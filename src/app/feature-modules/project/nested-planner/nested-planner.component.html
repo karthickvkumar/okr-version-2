@@ -70,8 +70,9 @@
         <ng-container *ngIf="boards.talks.length">
             <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
                 [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
-                <div>
-                    <h3 class="holder-heading">{{holder}}</h3>
+                <div [ngStyle]="{'margin-top': firstIndex ? '0px' : '5px'}">
+                    <app-inline-edit [data]='holder' (focusOut)='inlineEditHolder($event)'></app-inline-edit>
+                    <!-- <h3 class="holder-heading">{{holder}}</h3> -->
                     <button *ngIf="disableNewCard && firstIndex" nz-button nzType="default" [nzSize]="'small'"
                         class="hold-btn" (click)="newCard(boards)"><i nz-icon nzType="plus-square" nzTheme="outline"
                             class="inline-add-card"></i></button>
@@ -104,6 +105,7 @@
             <div class="card-holder">
                 <div class="holder" *ngFor="let holder of ['Column 1']" style="height: 100px;">
                     <div>
+                        <!-- <app-inline-edit [data]='holder' (focusOut)='inlineEditHolder($event)'></app-inline-edit> -->
                         <h3 class="holder-heading">{{holder}}</h3>
                         <!-- <button nz-button nzType="default" [nzSize]="'small'" class="hold-btn"><i nz-icon
                                 nzType="plus-square" nzTheme="outline" class="inline-add-card"></i></button> -->
