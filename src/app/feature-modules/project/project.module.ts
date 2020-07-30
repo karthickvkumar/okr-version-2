@@ -25,6 +25,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardsComponent } from './boards/boards.component';
@@ -79,8 +80,10 @@ import { InlineEditComponent } from '../../core-components/inline-edit/inline-ed
     NzDatePickerModule,
     NzSpinModule,
     NzToolTipModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NgZorroAntdModule
   ],
-  entryComponents: [EditBoardComponent, EditCardComponent, InlineEditComponent]
+  entryComponents: [EditBoardComponent, EditCardComponent, InlineEditComponent],
+  providers: [{ provide: NZ_I18N, useValue: en_US }]
 })
 export class ProjectModule { }

@@ -16,10 +16,12 @@
                 <a nz-button class="btn-link btn-link-active" (click)="goToPlanner()" nzType="link">Nested Planner</a>
             </li>
             <li *ngIf="headerOption">
-                <a nz-button class="btn-link" (click)="goToTimeline()" nzType="link">Timeline</a>
+                <a nz-button class="btn-link" (click)="goToTimeline()" nzType="link"
+                    style="cursor: not-allowed;">Timeline</a>
             </li>
             <li *ngIf="headerOption">
-                <a nz-button class="btn-link" (click)="goToStatus()" nzType="link">Status</a>
+                <a nz-button class="btn-link" (click)="goToStatus()" nzType="link"
+                    style="cursor: not-allowed;">Status</a>
             </li>
         </ul>
         <ul class="nav-right">

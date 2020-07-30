@@ -139,16 +139,12 @@ export class BoardsComponent implements OnInit {
   loadBoard(board) {
     if (board._id) {
       localStorage.setItem('boardId', board._id);
+      localStorage.setItem('cardHolder', JSON.stringify(board.cardHolder));
       this.commonService.setHeaderStore(true);
       this.router.navigateByUrl('/workflow');
     } else {
       this.boardAPI.notification()
     }
-  }
-
-  gotoBoard() {
-    this.commonService.setHeaderStore(true);
-    this.router.navigateByUrl('/workflow');
   }
 
   generateGuid() {

@@ -35,6 +35,11 @@ export class ApiService {
     return this.http.put(url, board);
   }
 
+  editCardHolder(holder) {
+    let url: string = this.baseURL + "/board/edit/holder";
+    return this.http.put(url, holder);
+  }
+
   deleteBoard(boardId) {
     let url: string = this.baseURL + "/board/delete/" + boardId;
     return this.http.delete(url);

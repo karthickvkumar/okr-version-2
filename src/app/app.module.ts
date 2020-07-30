@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import en from '@angular/common/locales/en';
 
@@ -38,7 +38,8 @@ registerLocaleData(en);
     AuthModule,
     ProjectModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, CommonService, ApiService],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, CommonService, ApiService],
+  // providers: [{ provide: NZ_I18N, useValue: en_US }, CommonService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

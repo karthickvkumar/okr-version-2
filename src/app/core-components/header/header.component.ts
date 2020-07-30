@@ -31,11 +31,11 @@ export class HeaderComponent implements OnInit {
   }
 
   goToTimeline() {
-    this.router.navigateByUrl('/workflow/timeline');
+    //this.router.navigateByUrl('/workflow/timeline');
   }
 
   goToStatus() {
-    this.router.navigateByUrl('/workflow/status');
+    //this.router.navigateByUrl('/workflow/status');
   }
 
   onLogout() {

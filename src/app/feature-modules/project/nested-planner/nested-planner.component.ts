@@ -67,6 +67,8 @@ export class NestedPlannerComponent implements OnInit {
   createCard: FormGroup;
   createCardLoading: boolean = false;
   @ViewChildren('addCardInput') textarea: any;
+  containerScroll: any;
+  // @ViewChildren('containerScroll') containerScroll: any;
 
   constructor(@Inject(DOCUMENT) private document: Document, private fb: FormBuilder, private renderer: Renderer2, private el: ElementRef, private router: Router, private route: ActivatedRoute, private commonService: CommonService, private modal: NzModalService, private viewContainerRef: ViewContainerRef, private boardAPI: ApiService) {
     this.commonService.setHeaderStore(true);
@@ -94,10 +96,10 @@ export class NestedPlannerComponent implements OnInit {
     this.listCards();
   }
 
-  addNewCard(card) {
+  addNewCard(event, card) {
+    event.stopPropagation();
     this.createCardLoading = true;
     Object.assign(card, { title: this.createCard.value.cardName });
-    console.log(card)
 
     this.boardAPI.createCard(card).subscribe((response: any) => {
       this.disableNewCard = true;
@@ -144,7 +146,7 @@ export class NestedPlannerComponent implements OnInit {
       targetId: container.getAttribute("data-id")
     };
     const targetRect = container.getBoundingClientRect();
-    const oneThird = targetRect.height / 3;
+    const oneThird = targetRect.height / 2.4;
 
     if (event.pointerPosition.y - targetRect.top < oneThird) {
       // before
@@ -300,7 +302,6 @@ export class NestedPlannerComponent implements OnInit {
     newCard.parentId = null;
     newCard.order = this.boards.talks.length;
     newCard.level = 1;
-    console.log(newCard)
     card.talks.push(newCard);
     this.getCardHolder();
     this.getHeight();
@@ -319,7 +320,6 @@ export class NestedPlannerComponent implements OnInit {
     newCard.order = parentCard[index].talks.length;
     newCard.parentId = parentCard[index]['_id'];
     newCard.level = parentCard[index]['level'] + 1;
-    console.log(newCard)
     if (card.talks) card.talks.push(newCard);
     if (!card.talks) card.talks = [newCard];
     this.getCardHolder();
@@ -395,8 +395,17 @@ export class NestedPlannerComponent implements OnInit {
     //   });
   }
 
-  inlineEditHolder(holderName) {
-    console.log(holderName)
+  inlineEditHolder(holderName, index) {
+    this.cardHolder[index] = holderName
+    const updateHolder = {
+      boradId: this.boardId,
+      cardHolder: this.cardHolder
+    }
+    this.boardAPI.editCardHolder(updateHolder).subscribe((response) => {
+    },
+      (error) => {
+        this.boardAPI.notification();
+      })
   }
 
   arrangeCards(cards) {
@@ -432,8 +441,9 @@ export class NestedPlannerComponent implements OnInit {
     let maxLevel = cards.filter((card) => {
       return card.length == maxValue
     });
+    const holderNames = localStorage.getItem('cardHolder') ? JSON.parse(localStorage.getItem('cardHolder')) : [];
     this.cardHolder = maxLevel[0].map((max, index) => {
-      return "Column " + (index + 1);
+      return holderNames[index] ? holderNames[index] : "Column " + (index + 1);
     })
   }
 

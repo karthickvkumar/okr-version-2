@@ -24,18 +24,28 @@
                         <span class="card-text">{{node.title}}</span>
                         <!-- <span class="card-ellipse">...</span> -->
                     </div>
-                    <div class="date-warp">
+                    <!-- <div class="date-warp">
                         <i nz-icon class="date-icon" nzType="clock-circle" nzTheme="outline"></i>
                         <span class="date">{{node?.selectedDate | dayMonth}}</span>
-                    </div>
+                    </div> -->
                     <div class="speaker-wrap">
+                        <nz-avatar *ngIf="node.author == ''" nzSize="small" nzIcon="user" class="user-img"
+                            nzTooltipTitle="UnAssigned" nzTooltipPlacement="topLeft" nz-tooltip>
+                        </nz-avatar>
+                        <nz-avatar *ngIf="node.author != ''" nzSize="small" class="user-img" nzText={{node.author[0]}}
+                            nzTooltipTitle={{node.author}} nzTooltipPlacement="topLeft" nz-tooltip>
+                        </nz-avatar>
+                        <div class="date-warp">
+                            <i nz-icon class="date-icon" nzType="clock-circle" nzTheme="outline"></i>
+                            <span class="date">{{node?.selectedDate | dayMonth}}</span>
+                        </div>
                         <span class="card-status">{{node?.status | uppercase}}</span>
-                        <span class="speaker" *ngIf="node.author">{{node.author}}</span>
+                        <!-- <span class="speaker" *ngIf="node.author">{{node.author[0]}}</span> -->
                     </div>
                 </div>
             </div>
             <div *ngIf="node.untouched" class="add-new-card">
-                <form [formGroup]="createCard" (ngSubmit)="addNewCard(node)">
+                <form [formGroup]="createCard" (ngSubmit)="addNewCard($event, node)">
                     <textarea #addCardInput rows="2" type="text" nz-input placeholder="Enter a title for this card..."
                         formControlName="cardName"></textarea>
                     <div>
@@ -69,9 +79,10 @@
     <div class="card-holder" #containerScroll *ngIf="!isLoading">
         <ng-container *ngIf="boards.talks.length">
             <div class="holder" *ngFor="let holder of cardHolder; let holderIndex = index; let firstIndex = first;"
-                [ngStyle]="{'margin-left': firstIndex ? '0px': (280 *  holderIndex)+'px', 'height' : cardHolderHeight}">
+                [ngStyle]="{'margin-left': firstIndex ? '0px': (268 *  holderIndex)+'px', 'height' : cardHolderHeight}">
                 <div [ngStyle]="{'margin-top': firstIndex ? '0px' : '5px'}">
-                    <app-inline-edit [data]='holder' (focusOut)='inlineEditHolder($event)'></app-inline-edit>
+                    <app-inline-edit [data]='holder' (focusOut)='inlineEditHolder($event, holderIndex)'>
+                    </app-inline-edit>
                     <!-- <h3 class="holder-heading">{{holder}}</h3> -->
                     <button *ngIf="disableNewCard && firstIndex" nz-button nzType="default" [nzSize]="'small'"
                         class="hold-btn" (click)="newCard(boards)"><i nz-icon nzType="plus-square" nzTheme="outline"
@@ -103,9 +114,8 @@
         <div *ngIf="!boards.talks.length && !isLoading">
             <!-- <span class="no-board">No Cards to display</span> -->
             <div class="card-holder">
-                <div class="holder" *ngFor="let holder of ['Column 1']" style="height: 100px;">
+                <div class="holder" *ngFor="let holder of ['Column']; let holderIndex = index;" style="height: 100px;">
                     <div>
-                        <!-- <app-inline-edit [data]='holder' (focusOut)='inlineEditHolder($event)'></app-inline-edit> -->
                         <h3 class="holder-heading">{{holder}}</h3>
                         <!-- <button nz-button nzType="default" [nzSize]="'small'" class="hold-btn"><i nz-icon
                                 nzType="plus-square" nzTheme="outline" class="inline-add-card"></i></button> -->
