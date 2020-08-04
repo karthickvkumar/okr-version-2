@@ -356,19 +356,6 @@ export class NestedPlannerComponent implements OnInit {
       }
       Object.assign(card, newCardData);
     });
-    // this._dialog.open(EditTalkComponent, { data: { card }, width: '500px' })
-    //   .afterClosed()
-    //   .subscribe((newTalkData) => {
-    //     if (newTalkData == '') return;
-    //     Object.assign(card, newTalkData);
-
-    //     this.boardAPI.editCard(card).subscribe((response) => {
-    //       this.boardAPI.notification("Card updated successfully");
-    //     },
-    //       (error) => {
-    //         this.boardAPI.notification();
-    //       })
-    //   });
   }
 
   deleteCard(event, card, talks, index) {
@@ -378,21 +365,6 @@ export class NestedPlannerComponent implements OnInit {
       this.getCardHolder();
       this.getHeight();
     }
-    // this._dialog.open(DeleteTalkComponent, { data: card, width: '500px' })
-    //   .afterClosed()
-    //   .subscribe(response => {
-    // if (response && card._id) {
-
-    //   talks.splice(index, 1);
-    //   this.getCardHolder();
-    //       this.boardAPI.deleteCard(card._id).subscribe((response) => {
-    //         this.boardAPI.notification("Card deleted successfully");
-    //       },
-    //         (error) => {
-    //           this.boardAPI.notification();
-    //         })
-    //     }
-    //   });
   }
 
   inlineEditHolder(holderName, index) {
@@ -401,6 +373,7 @@ export class NestedPlannerComponent implements OnInit {
       boradId: this.boardId,
       cardHolder: this.cardHolder
     }
+    localStorage.setItem('cardHolder', JSON.stringify(this.cardHolder));
     this.boardAPI.editCardHolder(updateHolder).subscribe((response) => {
     },
       (error) => {
